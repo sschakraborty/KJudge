@@ -15,5 +15,6 @@
 
     <modules>
         <module>KJudge-data</module>
+        <module>KJudge-error</module>
     </modules>
 </project>
