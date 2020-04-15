@@ -1,17 +1,23 @@
-package com.sschakraborty.platform.kjudge.data;
+package com.sschakraborty.platform.kjudge.data.sessionFactoryProvider;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-public class DefaultDataProvider implements DataProvider {
-	private final SessionFactory sessionFactory;
-	private final StandardServiceRegistry standardServiceRegistry;
+public class XMLConfigurationSessionFactoryProvider implements SessionFactoryProvider {
+	private SessionFactory sessionFactory;
+	private StandardServiceRegistry standardServiceRegistry;
 
-	public DefaultDataProvider() {
-		this.standardServiceRegistry = this.initServiceRegistry();
+	@Override
+	public void initialize(String configFileName) {
+		this.standardServiceRegistry = this.initServiceRegistry(configFileName);
 		this.sessionFactory = this.initSessionFactory();
+	}
+
+	@Override
+	public SessionFactory getSessionFactory() {
+		return this.sessionFactory;
 	}
 
 	private SessionFactory initSessionFactory() {
@@ -24,8 +30,8 @@ public class DefaultDataProvider implements DataProvider {
 		return null;
 	}
 
-	private StandardServiceRegistry initServiceRegistry() {
+	private StandardServiceRegistry initServiceRegistry(String configFileName) {
 		StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder();
-		return builder.build();
+		return builder.configure(configFileName).build();
 	}
 }
