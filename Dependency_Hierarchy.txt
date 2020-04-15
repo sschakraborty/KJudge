@@ -1,0 +1,14 @@
+KJudge-shared   -       Independent
+
+KJudge-error    -       Independent
+
+KJudge-data     -       KJudge-error
+
+KJudge-core     -       KJudge-shared
+
+KJudge-service  -       KJudge-shared
+			KJudge-data
+			KJudge-error
+			KJudge-core
+
+KJudge-server   -       KJudge-service
