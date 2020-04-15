@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>kjudge-shared</artifactId>
-    <name>KJudge Shared</name>
+    <name>KJudge Shared Module</name>
     <description>
         KJudge Shared classes
     </description>

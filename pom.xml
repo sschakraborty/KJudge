@@ -8,8 +8,12 @@
     <artifactId>kjudge</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+    <name>KJudge</name>
+    <description>KJudge Project</description>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mvn-compiler-plugin.version>3.8.1</mvn-compiler-plugin.version>
         <hibernate.version>5.4.14.Final</hibernate.version>
     </properties>
 
@@ -25,6 +29,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${mvn-compiler-plugin.version}</version>
                 <configuration>
                     <source>6</source>
                     <target>6</target>

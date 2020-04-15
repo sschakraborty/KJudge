@@ -10,6 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>kjudge-core</artifactId>
-    <name>KJudge Core</name>
+    <name>KJudge Core Judge</name>
     <description>The core judge program</description>
 </project>
