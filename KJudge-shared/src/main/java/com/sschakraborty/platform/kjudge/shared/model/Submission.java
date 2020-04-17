@@ -7,6 +7,7 @@ public class Submission {
 	private CodeSubmission codeSubmission;
 	private SubmissionResult submissionResult;
 	private LocalDateTime dateTime;
+	private User submitter;
 
 	public Submission() {
 		this.problem = null;
@@ -60,5 +61,13 @@ public class Submission {
 
 	public void updateToCurrentTimestamp() {
 		this.dateTime = LocalDateTime.now();
+	}
+
+	public User getSubmitter() {
+		return submitter;
+	}
+
+	public void setSubmitter(User submitter) {
+		this.submitter = submitter;
 	}
 }

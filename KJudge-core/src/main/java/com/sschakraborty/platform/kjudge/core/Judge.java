@@ -6,4 +6,6 @@ import com.sschakraborty.platform.kjudge.shared.model.SubmissionResult;
 
 public interface Judge {
 	SubmissionResult performJudgement(Submission submission) throws AbstractBusinessException;
+
+	boolean supports(Submission submission);
 }
