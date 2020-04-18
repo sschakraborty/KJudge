@@ -14,7 +14,10 @@ public class ProcessUtility {
 
 	public static String executeSystemCommand(String systemCommand) throws AbstractBusinessException {
 		try {
-			Process process = Runtime.getRuntime().exec(systemCommand);
+			ProcessBuilder processBuilder = new ProcessBuilder();
+			processBuilder.command(systemCommand.split(" "));
+			processBuilder.redirectErrorStream(true);
+			Process process = processBuilder.start();
 			return collectOutput(process);
 		} catch (IOException e) {
 			ExceptionUtility.throwGenericException(
