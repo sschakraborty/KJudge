@@ -6,6 +6,10 @@ import com.sschakraborty.platform.kjudge.shared.model.Submission;
 import com.sschakraborty.platform.kjudge.shared.model.SubmissionResult;
 
 public class Cpp14CoreJudge extends AbstractCppJudge {
+	public Cpp14CoreJudge() throws AbstractBusinessException {
+		super();
+	}
+
 	@Override
 	public SubmissionResult performJudgement(Submission submission) throws AbstractBusinessException {
 		return null;

@@ -16,12 +16,12 @@ import com.sschakraborty.platform.kjudge.shared.model.SubmissionResult;
 public class JudgeEntryPoint {
 	private final JudgeSelector judgeSelector;
 
-	public JudgeEntryPoint() {
+	public JudgeEntryPoint() throws AbstractBusinessException {
 		this.judgeSelector = new JudgeSelector();
 		this.initializeJudges();
 	}
 
-	private void initializeJudges() {
+	private void initializeJudges() throws AbstractBusinessException {
 		this.judgeSelector.addJudge(new CLang99CoreJudge());
 		this.judgeSelector.addJudge(new CLang11CoreJudge());
 		this.judgeSelector.addJudge(new Cpp11CoreJudge());
