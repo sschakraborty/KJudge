@@ -5,6 +5,8 @@ import com.sschakraborty.platform.kjudge.shared.model.Language;
 import com.sschakraborty.platform.kjudge.shared.model.Submission;
 import com.sschakraborty.platform.kjudge.shared.model.SubmissionResult;
 
+import java.util.Properties;
+
 public class CLang99CoreJudge extends AbstractCLangJudge {
 	public CLang99CoreJudge() throws AbstractBusinessException {
 		super();
@@ -18,5 +20,10 @@ public class CLang99CoreJudge extends AbstractCLangJudge {
 	@Override
 	public boolean supports(Submission submission) {
 		return submission.getCodeSubmission().getLanguage() == Language.C_99;
+	}
+
+	@Override
+	protected Properties readProperties() throws AbstractBusinessException {
+		return this.getPropertyFileReader().readJudgeProperties(this.getClass());
 	}
 }

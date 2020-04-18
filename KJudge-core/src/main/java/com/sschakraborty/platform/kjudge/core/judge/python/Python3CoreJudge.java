@@ -8,6 +8,8 @@ import com.sschakraborty.platform.kjudge.shared.model.Language;
 import com.sschakraborty.platform.kjudge.shared.model.Submission;
 import com.sschakraborty.platform.kjudge.shared.model.SubmissionResult;
 
+import java.util.Properties;
+
 public class Python3CoreJudge extends AbstractPythonJudge {
 	public Python3CoreJudge() throws AbstractBusinessException {
 		super();
@@ -25,12 +27,22 @@ public class Python3CoreJudge extends AbstractPythonJudge {
 
 	@Override
 	protected void checkEnvironmentReady() throws AbstractBusinessException {
-		String output = ProcessUtility.executeSystemCommand("python3 --version");
-		if (!output.startsWith("Python 3.")) {
+		String basePath = this.getProperties().getProperty("python.basePath");
+		String program = this.getProperties().getProperty("python.program");
+		String versionSwitch = this.getProperties().getProperty("python.versionSwitch");
+		String versionString = this.getProperties().getProperty("python.versionString");
+
+		String output = ProcessUtility.executeSystemCommand(basePath + "/" + program + " " + versionSwitch);
+		if (!output.trim().startsWith(versionString)) {
 			ExceptionUtility.throwGenericException(
 				JudgeErrorCode.JUDGE_ENVIRONMENT_NOT_READY,
 				"Python 3 environment is not ready or missing!"
 			);
 		}
+	}
+
+	@Override
+	protected Properties readProperties() throws AbstractBusinessException {
+		return this.getPropertyFileReader().readJudgeProperties(this.getClass());
 	}
 }

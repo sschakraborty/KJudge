@@ -8,6 +8,8 @@ import com.sschakraborty.platform.kjudge.shared.model.Language;
 import com.sschakraborty.platform.kjudge.shared.model.Submission;
 import com.sschakraborty.platform.kjudge.shared.model.SubmissionResult;
 
+import java.util.Properties;
+
 public class Java11CoreJudge extends AbstractJavaJudge {
 	public Java11CoreJudge() throws AbstractBusinessException {
 		super();
@@ -25,12 +27,22 @@ public class Java11CoreJudge extends AbstractJavaJudge {
 
 	@Override
 	protected void checkEnvironmentReady() throws AbstractBusinessException {
-		String output = ProcessUtility.executeSystemCommand("javac -version");
-		if (!output.startsWith("javac 11.")) {
+		String basePath = this.getProperties().getProperty("jvm.basePath");
+		String compiler = this.getProperties().getProperty("jvm.compiler");
+		String versionSwitch = this.getProperties().getProperty("jvm.compiler.versionSwitch");
+		String versionString = this.getProperties().getProperty("jvm.compiler.versionString");
+
+		String output = ProcessUtility.executeSystemCommand(basePath + "/bin/" + compiler + " " + versionSwitch);
+		if (!output.trim().equals(versionString)) {
 			ExceptionUtility.throwGenericException(
 				JudgeErrorCode.JUDGE_ENVIRONMENT_NOT_READY,
 				"Java 11 (JDK) environment is not ready or missing!"
 			);
 		}
+	}
+
+	@Override
+	protected Properties readProperties() throws AbstractBusinessException {
+		return this.getPropertyFileReader().readJudgeProperties(this.getClass());
 	}
 }

@@ -6,7 +6,8 @@ public enum JudgeErrorCode implements ErrorCode {
 	IO_ERROR_IN_PROCESS_EXEC("IO error while executing process!"),
 	JUDGE_ENVIRONMENT_NOT_READY("Environment not ready or missing!"),
 	JUDGE_ENTRY_LIST_ERROR("Judge entry list resource error!"),
-	MALFORMED_JUDGE_CLASS("Judge class not defined according to specified rules!");
+	MALFORMED_JUDGE_CLASS("Judge class not defined according to specified rules!"),
+	JUDGE_PROPERTIES_ERROR("Error in judge (.properties) config file!");
 
 	private final String message;
 
