@@ -7,10 +7,14 @@ import com.sschakraborty.platform.kjudge.error.errorCode.JudgeErrorCode;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class ProcessUtility {
 	private static final String ERR_EXEC_SYSTEM_COMMAND = "Error occurred while executing a system command (%s): %s";
 	private static final String ERR_EXEC_PROCESS = "Error occurred while executing a process: %s";
+	private static final String ERR_CTLE = "Compilation time limit exceeded for command (%s)";
+	private static final String ERR_INTERRUPTED = "Compilation thread (%s) interrupted: %s!";
+	private static final int WAIT_TIME = 8000;
 
 	public static String executeSystemCommand(String systemCommand) throws AbstractBusinessException {
 		try {
@@ -18,11 +22,30 @@ public class ProcessUtility {
 			processBuilder.command(systemCommand.split(" "));
 			processBuilder.redirectErrorStream(true);
 			Process process = processBuilder.start();
+
+			process.waitFor(WAIT_TIME, TimeUnit.MILLISECONDS);
+			if (process.isAlive()) {
+				process.destroyForcibly();
+				ExceptionUtility.throwGenericException(
+					JudgeErrorCode.COMPILATION_TIME_OUT,
+					String.format(ERR_CTLE, systemCommand)
+				);
+			}
+
 			return collectOutput(process);
 		} catch (IOException e) {
 			ExceptionUtility.throwGenericException(
 				JudgeErrorCode.IO_ERROR_IN_COMMAND_EXEC,
 				String.format(ERR_EXEC_SYSTEM_COMMAND, systemCommand, e.getMessage())
+			);
+		} catch (InterruptedException e) {
+			ExceptionUtility.throwGenericException(
+				JudgeErrorCode.THREAD_INTERRUPTED,
+				String.format(
+					ERR_INTERRUPTED,
+					Thread.currentThread().getName(),
+					e.getMessage()
+				)
 			);
 		}
 		return null;

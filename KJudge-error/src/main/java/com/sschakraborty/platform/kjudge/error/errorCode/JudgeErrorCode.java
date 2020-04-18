@@ -7,7 +7,10 @@ public enum JudgeErrorCode implements ErrorCode {
 	JUDGE_ENVIRONMENT_NOT_READY("Environment not ready or missing!"),
 	JUDGE_ENTRY_LIST_ERROR("Judge entry list resource error!"),
 	MALFORMED_JUDGE_CLASS("Judge class not defined according to specified rules!"),
-	JUDGE_PROPERTIES_ERROR("Error in judge (.properties) config file!");
+	JUDGE_PROPERTIES_ERROR("Error in judge (.properties) config file!"),
+	COMPILATION_ERROR("Compilation error!"),
+	COMPILATION_TIME_OUT("Compilation time limit exceeded!"),
+	THREAD_INTERRUPTED("Judge thread interrupted!");
 
 	private final String message;
 
