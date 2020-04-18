@@ -21,7 +21,7 @@ public class JudgeListReader {
 
 	public JudgeListReader() throws AbstractBusinessException {
 		InputStream inputStream = this.getResourceFile();
-		bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+		this.bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 		this.activeJudges = new ArrayList<>();
 		this.inactiveJudges = new ArrayList<>();
 		this.readJudges();
