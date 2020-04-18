@@ -18,6 +18,7 @@ public abstract class AbstractJavaJudge extends AbstractJudge {
 			"jvm.compiler.versionSwitch",
 			"jvm.compiler.versionString",
 			"jvm.compiler.args",
+			"jvm.disassembler",
 			"jvm.runtime",
 			"jvm.runtime.args"
 		};
