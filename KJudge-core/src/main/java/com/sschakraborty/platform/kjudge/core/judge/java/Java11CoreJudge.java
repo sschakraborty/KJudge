@@ -25,7 +25,7 @@ public class Java11CoreJudge extends AbstractJavaJudge {
 		String mainClass = getMainClassName(baseDir);
 
 		int timeConstraint = submission.getProblem().getTimeConstraint()
-			.getTimeConstraints().get(Language.JAVA_8);
+			.getTimeConstraints().get(Language.JAVA_11);
 
 		for (Testcase testcase : submission.getProblem().getTestcases()) {
 			runProgram(
