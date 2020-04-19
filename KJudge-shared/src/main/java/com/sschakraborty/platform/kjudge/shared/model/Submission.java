@@ -3,6 +3,7 @@ package com.sschakraborty.platform.kjudge.shared.model;
 import java.time.LocalDateTime;
 
 public class Submission {
+	private int id;
 	private Problem problem;
 	private CodeSubmission codeSubmission;
 	private SubmissionResult submissionResult;
@@ -69,5 +70,13 @@ public class Submission {
 
 	public void setSubmitter(User submitter) {
 		this.submitter = submitter;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

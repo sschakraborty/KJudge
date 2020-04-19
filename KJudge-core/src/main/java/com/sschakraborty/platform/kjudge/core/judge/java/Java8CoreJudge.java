@@ -17,6 +17,7 @@ public class Java8CoreJudge extends AbstractJavaJudge {
 
 	@Override
 	public SubmissionResult performJudgement(Submission submission) throws AbstractBusinessException {
+		writeSubmissionToStageArea(submission, "Solution.java");
 		return null;
 	}
 

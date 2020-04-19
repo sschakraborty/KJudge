@@ -26,7 +26,7 @@ public class RunStageExecutorTest {
 	@Test
 	public void execute() throws AbstractBusinessException {
 		RunStageExecutor stageExecutor = new RunStageExecutor(
-			"boobootro",
+			"RunID_1",
 			java8Properties.getProperty("jvm.basePath") + "/bin",
 			java8Properties.getProperty("jvm.runtime"),
 			"/home/sschakraborty/Documents/exper"
