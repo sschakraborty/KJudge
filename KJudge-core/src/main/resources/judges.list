@@ -3,7 +3,7 @@ clang.CLang99CoreJudge          ON
 cpp.Cpp11CoreJudge              ON
 cpp.Cpp14CoreJudge              ON
 cpp.Cpp17CoreJudge              ON
-java.Java11CoreJudge            OFF
+java.Java11CoreJudge            ON
 java.Java8CoreJudge             ON
 python.Python2CoreJudge         ON
 python.Python3CoreJudge         ON
