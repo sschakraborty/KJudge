@@ -7,16 +7,26 @@ import com.sschakraborty.platform.kjudge.error.errorCode.JudgeErrorCode;
 import com.sschakraborty.platform.kjudge.shared.model.Language;
 import com.sschakraborty.platform.kjudge.shared.model.Submission;
 import com.sschakraborty.platform.kjudge.shared.model.SubmissionResult;
+import com.sschakraborty.platform.kjudge.shared.model.Testcase;
 
 import java.util.Properties;
 
 public class Python3CoreJudge extends AbstractPythonJudge {
+	private static final String FILE_NAME = "Solution_Py3.py";
+
 	public Python3CoreJudge() throws AbstractBusinessException {
 		super();
 	}
 
 	@Override
 	public SubmissionResult performJudgement(Submission submission) throws AbstractBusinessException {
+		String baseDirectory = writeSubmissionToStageArea(submission, FILE_NAME);
+		int timeLimit = submission.getProblem().getTimeConstraint()
+			.getTimeConstraints().get(Language.PYTHON_3);
+
+		for (Testcase testcase : submission.getProblem().getTestcases()) {
+			runProgram(submission, testcase, FILE_NAME, baseDirectory, timeLimit);
+		}
 		return null;
 	}
 

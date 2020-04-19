@@ -68,7 +68,7 @@ public abstract class AbstractJavaJudge extends AbstractJudge {
 		String basePath = this.getProperties().getProperty("jvm.basePath");
 		String runtime = getProperties().getProperty("jvm.runtime");
 
-		RunStageExecutor stageExecutor = new RunStageExecutor(
+		final RunStageExecutor stageExecutor = new RunStageExecutor(
 			runId,
 			basePath + "/bin",
 			runtime,

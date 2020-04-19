@@ -2,13 +2,52 @@ package com.sschakraborty.platform.kjudge.core.judge.clang;
 
 import com.sschakraborty.platform.kjudge.core.AbstractJudge;
 import com.sschakraborty.platform.kjudge.core.exec.ProcessUtility;
+import com.sschakraborty.platform.kjudge.core.exec.stageExecutor.CompileStageExecutor;
+import com.sschakraborty.platform.kjudge.core.exec.stageExecutor.RunStageExecutor;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
 import com.sschakraborty.platform.kjudge.error.ExceptionUtility;
 import com.sschakraborty.platform.kjudge.error.errorCode.JudgeErrorCode;
+import com.sschakraborty.platform.kjudge.shared.model.Submission;
+import com.sschakraborty.platform.kjudge.shared.model.Testcase;
 
 public abstract class AbstractCLangJudge extends AbstractJudge {
+	private static final String OBJECT_NAME = "object";
+
 	public AbstractCLangJudge() throws AbstractBusinessException {
 		super();
+	}
+
+	final void compileProgram(String baseDirectory, String std, String fileName) throws AbstractBusinessException {
+		final CompileStageExecutor executor = new CompileStageExecutor(
+			getProperties().getProperty("clang.basePath"),
+			getProperties().getProperty("clang.compiler"),
+			baseDirectory,
+			true
+		);
+		executor.setExpectedOutput("");
+		executor.setArguments("-O2", "-w", "-std=" + std, "-o", OBJECT_NAME, fileName);
+		executor.execute();
+	}
+
+	protected final void runProgram(
+		Submission submission,
+		Testcase testcase,
+		String baseDirectory,
+		int timeLimit
+	) throws AbstractBusinessException {
+		final String runId = (
+			submission.getSubmitter().getPrincipal()
+				+ "_" + submission.getId() + "_"
+				+ testcase.getName()
+		);
+
+		final RunStageExecutor stageExecutor = new RunStageExecutor(
+			runId, baseDirectory, OBJECT_NAME, baseDirectory
+		);
+
+		stageExecutor.setTimeLimit(timeLimit);
+		stageExecutor.setInputFilePath(testcase.getInputFilePath());
+		stageExecutor.execute();
 	}
 
 	@Override

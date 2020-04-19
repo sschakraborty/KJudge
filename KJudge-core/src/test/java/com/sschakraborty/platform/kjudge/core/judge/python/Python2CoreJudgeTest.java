@@ -1,4 +1,4 @@
-package com.sschakraborty.platform.kjudge.core.judge.java;
+package com.sschakraborty.platform.kjudge.core.judge.python;
 
 import com.sschakraborty.platform.kjudge.core.io.PropertyFileReader;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
@@ -10,25 +10,21 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class Java8CoreJudgeTest {
+public class Python2CoreJudgeTest {
 	private final Properties masterProperties;
-	private final Java8CoreJudge judge;
+	private final Python2CoreJudge judge;
 
-	public Java8CoreJudgeTest() throws AbstractBusinessException {
+	public Python2CoreJudgeTest() throws AbstractBusinessException {
 		PropertyFileReader propertyFileReader = new PropertyFileReader();
 		this.masterProperties = propertyFileReader.readPropertiesUsingFileName("kjudge.properties");
-		judge = new Java8CoreJudge();
+		judge = new Python2CoreJudge();
 	}
 
 	@Test
 	public void performJudgement() throws AbstractBusinessException {
 		CodeSubmission codeSubmission = new CodeSubmission();
-		codeSubmission.setLanguage(Language.JAVA_8);
-		codeSubmission.setSourceCode("class Solution {\n" +
-			"    public static void main(String[] args) {\n" +
-			"        System.out.println(\"Hello World!\");\n" +
-			"    }\n" +
-			"}");
+		codeSubmission.setLanguage(Language.PYTHON_2);
+		codeSubmission.setSourceCode("print \"Hello World from Py2!\";");
 
 		Testcase tc1 = new Testcase();
 		tc1.setName("TC1");
@@ -39,7 +35,7 @@ public class Java8CoreJudgeTest {
 		tc2.setInputFilePath(this.masterProperties.getProperty("kjudge.stageDirectory") + "/input");
 
 		Map<Language, Integer> map = new HashMap<>();
-		map.put(Language.JAVA_8, 1000);
+		map.put(Language.PYTHON_2, 500);
 		TimeConstraint timeConstraint = new TimeConstraint();
 		timeConstraint.setTimeConstraints(map);
 
@@ -49,7 +45,7 @@ public class Java8CoreJudgeTest {
 		problem.setTimeConstraint(timeConstraint);
 
 		User user = new User();
-		user.setPrincipal("Java8TestUser");
+		user.setPrincipal("Py2TestUser");
 
 		Submission submission = new Submission();
 		submission.setId((int) (Math.random() * 1000));

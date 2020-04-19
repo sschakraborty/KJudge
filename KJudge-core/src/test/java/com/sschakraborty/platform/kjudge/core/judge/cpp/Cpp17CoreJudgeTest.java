@@ -1,4 +1,4 @@
-package com.sschakraborty.platform.kjudge.core.judge.java;
+package com.sschakraborty.platform.kjudge.core.judge.cpp;
 
 import com.sschakraborty.platform.kjudge.core.io.PropertyFileReader;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
@@ -10,24 +10,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-public class Java8CoreJudgeTest {
+public class Cpp17CoreJudgeTest {
 	private final Properties masterProperties;
-	private final Java8CoreJudge judge;
+	private final Cpp17CoreJudge judge;
 
-	public Java8CoreJudgeTest() throws AbstractBusinessException {
+	public Cpp17CoreJudgeTest() throws AbstractBusinessException {
 		PropertyFileReader propertyFileReader = new PropertyFileReader();
 		this.masterProperties = propertyFileReader.readPropertiesUsingFileName("kjudge.properties");
-		judge = new Java8CoreJudge();
+		judge = new Cpp17CoreJudge();
 	}
 
 	@Test
 	public void performJudgement() throws AbstractBusinessException {
 		CodeSubmission codeSubmission = new CodeSubmission();
-		codeSubmission.setLanguage(Language.JAVA_8);
-		codeSubmission.setSourceCode("class Solution {\n" +
-			"    public static void main(String[] args) {\n" +
-			"        System.out.println(\"Hello World!\");\n" +
-			"    }\n" +
+		codeSubmission.setLanguage(Language.CPP_17);
+		codeSubmission.setSourceCode("#include <iostream>\n" +
+			"\n" +
+			"int main() {\n" +
+			"    std::cout << \"Hello World!\";\n" +
+			"    return 0;\n" +
 			"}");
 
 		Testcase tc1 = new Testcase();
@@ -39,7 +40,7 @@ public class Java8CoreJudgeTest {
 		tc2.setInputFilePath(this.masterProperties.getProperty("kjudge.stageDirectory") + "/input");
 
 		Map<Language, Integer> map = new HashMap<>();
-		map.put(Language.JAVA_8, 1000);
+		map.put(Language.CPP_17, 100);
 		TimeConstraint timeConstraint = new TimeConstraint();
 		timeConstraint.setTimeConstraints(map);
 
@@ -49,7 +50,7 @@ public class Java8CoreJudgeTest {
 		problem.setTimeConstraint(timeConstraint);
 
 		User user = new User();
-		user.setPrincipal("Java8TestUser");
+		user.setPrincipal("Cpp17TestUser");
 
 		Submission submission = new Submission();
 		submission.setId((int) (Math.random() * 1000));

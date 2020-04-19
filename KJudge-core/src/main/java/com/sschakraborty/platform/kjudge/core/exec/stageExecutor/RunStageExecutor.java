@@ -31,6 +31,7 @@ public class RunStageExecutor extends AbstractStageExecutor {
 		this.runId = runId;
 		this.runBasePath = runBasePath;
 		this.runProgram = runProgram;
+		this.arguments = new String[0];
 	}
 
 	public String getRunId() {
