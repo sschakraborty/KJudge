@@ -4,6 +4,10 @@ import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
 import com.sschakraborty.platform.kjudge.shared.model.*;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Java8CoreJudgeTest {
 	private final Java8CoreJudge judge;
 
@@ -21,8 +25,19 @@ public class Java8CoreJudgeTest {
 			"    }\n" +
 			"}");
 
+		Testcase testcase = new Testcase();
+		testcase.setName("TC1");
+		testcase.setInputFilePath("/home/sschakraborty/Documents/exper/input");
+
+		Map<Language, Integer> map = new HashMap<>();
+		map.put(Language.JAVA_8, 1000);
+		TimeConstraint timeConstraint = new TimeConstraint();
+		timeConstraint.setTimeConstraints(map);
+
 		Problem problem = new Problem();
 		problem.setProblemHandle("HelloWorld123");
+		problem.setTestcases(Arrays.asList(testcase));
+		problem.setTimeConstraint(timeConstraint);
 
 		User user = new User();
 		user.setPrincipal("TestUser");

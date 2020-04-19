@@ -7,17 +7,36 @@ import com.sschakraborty.platform.kjudge.error.errorCode.JudgeErrorCode;
 import com.sschakraborty.platform.kjudge.shared.model.Language;
 import com.sschakraborty.platform.kjudge.shared.model.Submission;
 import com.sschakraborty.platform.kjudge.shared.model.SubmissionResult;
+import com.sschakraborty.platform.kjudge.shared.model.Testcase;
 
 import java.util.Properties;
 
 public class Java8CoreJudge extends AbstractJavaJudge {
+	private static final String FILE_NAME = "Solution_Java_8.java";
+
 	public Java8CoreJudge() throws AbstractBusinessException {
 		super();
 	}
 
 	@Override
 	public SubmissionResult performJudgement(Submission submission) throws AbstractBusinessException {
-		writeSubmissionToStageArea(submission, "Solution.java");
+		String baseDir = writeSubmissionToStageArea(submission, FILE_NAME);
+		compileProgram(baseDir, FILE_NAME);
+		String mainClass = getMainClassName(baseDir);
+
+		int timeConstraint = submission.getProblem().getTimeConstraint()
+			.getTimeConstraints().get(Language.JAVA_8);
+
+		for (Testcase testcase : submission.getProblem().getTestcases()) {
+			runProgram(
+				submission,
+				testcase,
+				mainClass,
+				baseDir,
+				timeConstraint
+			);
+		}
+
 		return null;
 	}
 
