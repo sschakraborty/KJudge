@@ -6,6 +6,7 @@ import com.sschakraborty.platform.kjudge.error.ExceptionUtility;
 import com.sschakraborty.platform.kjudge.error.errorCode.JudgeErrorCode;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -17,10 +18,22 @@ public class ProcessUtility {
 	private static final int WAIT_TIME = 8000;
 
 	public static String executeSystemCommand(String systemCommand) throws AbstractBusinessException {
+		ProcessBuilder processBuilder = new ProcessBuilder();
+		processBuilder.command(systemCommand.split(" "));
+		processBuilder.redirectErrorStream(true);
+		return executeProcess(systemCommand, processBuilder);
+	}
+
+	public static String executeSystemCommand(File baseDir, String systemCommand) throws AbstractBusinessException {
+		ProcessBuilder processBuilder = new ProcessBuilder();
+		processBuilder.command(systemCommand.split(" "));
+		processBuilder.redirectErrorStream(true);
+		processBuilder.directory(baseDir);
+		return executeProcess(systemCommand, processBuilder);
+	}
+
+	private static String executeProcess(String systemCommand, ProcessBuilder processBuilder) throws AbstractBusinessException {
 		try {
-			ProcessBuilder processBuilder = new ProcessBuilder();
-			processBuilder.command(systemCommand.split(" "));
-			processBuilder.redirectErrorStream(true);
 			Process process = processBuilder.start();
 
 			process.waitFor(WAIT_TIME, TimeUnit.MILLISECONDS);

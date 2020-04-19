@@ -5,14 +5,15 @@ import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
 import com.sschakraborty.platform.kjudge.error.ExceptionUtility;
 import com.sschakraborty.platform.kjudge.error.errorCode.JudgeErrorCode;
 
-public class CompileStageExecutor implements StageExecutor {
+public class CompileStageExecutor extends AbstractStageExecutor {
 	private final String compilerBasePath;
 	private final String compilerProgram;
 	private final boolean compareOutput;
 	private String expectedOutput;
 	private String[] arguments;
 
-	public CompileStageExecutor(String compilerBasePath, String compilerProgram, boolean compareOutput) {
+	public CompileStageExecutor(String compilerBasePath, String compilerProgram, String baseDirectory, boolean compareOutput) {
+		super(baseDirectory);
 		this.compilerBasePath = compilerBasePath;
 		this.compilerProgram = compilerProgram;
 		this.compareOutput = compareOutput;
@@ -58,7 +59,11 @@ public class CompileStageExecutor implements StageExecutor {
 		}
 		stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 
-		String output = ProcessUtility.executeSystemCommand(stringBuilder.toString());
+		String output = ProcessUtility.executeSystemCommand(
+			constructBaseDirectory(),
+			stringBuilder.toString()
+		);
+
 		if (this.compareOutput && !output.equals(this.expectedOutput)) {
 			ExceptionUtility.throwGenericException(
 				JudgeErrorCode.COMPILATION_ERROR,

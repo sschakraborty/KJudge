@@ -10,7 +10,8 @@ public enum JudgeErrorCode implements ErrorCode {
 	JUDGE_PROPERTIES_ERROR("Error in judge (.properties) config file!"),
 	COMPILATION_ERROR("Compilation error!"),
 	COMPILATION_TIME_OUT("Compilation time limit exceeded!"),
-	THREAD_INTERRUPTED("Judge thread interrupted!");
+	THREAD_INTERRUPTED("Judge thread interrupted!"),
+	RUN_TIME_LIMIT_EXCEEDED("Run time limit exceeded!");
 
 	private final String message;
 
