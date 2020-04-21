@@ -1,5 +1,6 @@
 package com.sschakraborty.platform.kjudge.core;
 
+import com.sschakraborty.platform.kjudge.core.exec.stageExecutor.CompareStageExecutor;
 import com.sschakraborty.platform.kjudge.core.io.IOUtility;
 import com.sschakraborty.platform.kjudge.core.io.PropertyFileReader;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
@@ -36,6 +37,16 @@ public abstract class AbstractJudge implements Judge {
 
 		IOUtility.writeToFile(baseDirectoryPath.toString(), fileName, submission.getCodeSubmission().getSourceCode());
 		return baseDirectoryPath.toString();
+	}
+
+	protected final void compareOutput(
+		String baseDirectory,
+		String fileName,
+		String expectedOutputFilePath
+	) throws AbstractBusinessException {
+		CompareStageExecutor executor;
+		executor = new CompareStageExecutor(baseDirectory, fileName, expectedOutputFilePath);
+		executor.execute();
 	}
 
 	protected abstract void checkPropertiesPresent() throws AbstractBusinessException;

@@ -23,8 +23,21 @@ public class Cpp11CoreJudge extends AbstractCppJudge {
 		int timeLimit = submission.getProblem().getTimeConstraint()
 			.getTimeConstraints().get(Language.CPP_11);
 
+		String testcaseOutputFileName;
+
 		for (Testcase testcase : submission.getProblem().getTestcases()) {
-			runProgram(submission, testcase, baseDirectory, timeLimit);
+			testcaseOutputFileName = runProgram(
+				submission,
+				testcase,
+				baseDirectory,
+				timeLimit
+			);
+
+			compareOutput(
+				baseDirectory,
+				testcaseOutputFileName,
+				testcase.getExpectedOutputFilePath()
+			);
 		}
 
 		return null;

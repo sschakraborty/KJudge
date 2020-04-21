@@ -27,13 +27,21 @@ public class Java8CoreJudge extends AbstractJavaJudge {
 		int timeConstraint = submission.getProblem().getTimeConstraint()
 			.getTimeConstraints().get(Language.JAVA_8);
 
+		String testcaseOutputFileName;
+
 		for (Testcase testcase : submission.getProblem().getTestcases()) {
-			runProgram(
+			testcaseOutputFileName = runProgram(
 				submission,
 				testcase,
 				mainClass,
 				baseDir,
 				timeConstraint
+			);
+
+			compareOutput(
+				baseDir,
+				testcaseOutputFileName,
+				testcase.getExpectedOutputFilePath()
 			);
 		}
 

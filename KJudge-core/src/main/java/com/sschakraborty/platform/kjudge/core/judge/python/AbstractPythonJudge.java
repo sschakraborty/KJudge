@@ -13,7 +13,7 @@ public abstract class AbstractPythonJudge extends AbstractJudge {
 		super();
 	}
 
-	protected final void runProgram(
+	final String runProgram(
 		Submission submission,
 		Testcase testcase,
 		String fileName,
@@ -36,6 +36,8 @@ public abstract class AbstractPythonJudge extends AbstractJudge {
 		stageExecutor.setTimeLimit(timeLimit);
 		stageExecutor.setInputFilePath(testcase.getInputFilePath());
 		stageExecutor.execute();
+
+		return runId;
 	}
 
 	@Override

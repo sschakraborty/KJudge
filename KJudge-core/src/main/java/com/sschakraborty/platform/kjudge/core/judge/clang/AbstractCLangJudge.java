@@ -29,7 +29,7 @@ public abstract class AbstractCLangJudge extends AbstractJudge {
 		executor.execute();
 	}
 
-	protected final void runProgram(
+	final String runProgram(
 		Submission submission,
 		Testcase testcase,
 		String baseDirectory,
@@ -48,6 +48,8 @@ public abstract class AbstractCLangJudge extends AbstractJudge {
 		stageExecutor.setTimeLimit(timeLimit);
 		stageExecutor.setInputFilePath(testcase.getInputFilePath());
 		stageExecutor.execute();
+
+		return runId;
 	}
 
 	@Override

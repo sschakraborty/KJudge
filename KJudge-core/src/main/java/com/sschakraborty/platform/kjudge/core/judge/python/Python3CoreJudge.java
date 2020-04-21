@@ -24,8 +24,22 @@ public class Python3CoreJudge extends AbstractPythonJudge {
 		int timeLimit = submission.getProblem().getTimeConstraint()
 			.getTimeConstraints().get(Language.PYTHON_3);
 
+		String testcaseOutputFileName;
+
 		for (Testcase testcase : submission.getProblem().getTestcases()) {
-			runProgram(submission, testcase, FILE_NAME, baseDirectory, timeLimit);
+			testcaseOutputFileName = runProgram(
+				submission,
+				testcase,
+				FILE_NAME,
+				baseDirectory,
+				timeLimit
+			);
+
+			compareOutput(
+				baseDirectory,
+				testcaseOutputFileName,
+				testcase.getExpectedOutputFilePath()
+			);
 		}
 		return null;
 	}

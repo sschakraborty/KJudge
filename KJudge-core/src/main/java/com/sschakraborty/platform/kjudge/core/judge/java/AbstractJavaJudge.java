@@ -53,7 +53,7 @@ public abstract class AbstractJavaJudge extends AbstractJudge {
 		return null;
 	}
 
-	final void runProgram(
+	final String runProgram(
 		Submission submission,
 		Testcase testcase,
 		String mainClassName,
@@ -79,6 +79,8 @@ public abstract class AbstractJavaJudge extends AbstractJudge {
 		stageExecutor.setTimeLimit(timeLimit);
 		stageExecutor.setInputFilePath(testcase.getInputFilePath());
 		stageExecutor.execute();
+
+		return runId;
 	}
 
 	@Override

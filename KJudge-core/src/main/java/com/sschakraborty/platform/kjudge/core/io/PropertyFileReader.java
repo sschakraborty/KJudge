@@ -19,6 +19,7 @@ public class PropertyFileReader {
 		Properties properties = new Properties();
 		try {
 			properties.load(inputStream);
+			inputStream.close();
 		} catch (IOException e) {
 			ExceptionUtility.throwGenericException(
 				JudgeErrorCode.JUDGE_PROPERTIES_ERROR,

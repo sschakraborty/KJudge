@@ -23,7 +23,6 @@ public class RunStageExecutor extends AbstractStageExecutor {
 	private int ioLimit;
 
 	private String inputFilePath;
-	private String expectedOutputFilePath;
 	private String errOutput;
 
 	public RunStageExecutor(String runId, String runBasePath, String runProgram, String baseDirectory) {
@@ -84,14 +83,6 @@ public class RunStageExecutor extends AbstractStageExecutor {
 
 	public void setInputFilePath(String inputFilePath) {
 		this.inputFilePath = inputFilePath;
-	}
-
-	public String getExpectedOutputFilePath() {
-		return expectedOutputFilePath;
-	}
-
-	public void setExpectedOutputFilePath(String expectedOutputFilePath) {
-		this.expectedOutputFilePath = expectedOutputFilePath;
 	}
 
 	public String getErrOutput() {

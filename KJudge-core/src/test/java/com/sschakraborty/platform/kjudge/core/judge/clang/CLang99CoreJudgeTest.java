@@ -27,17 +27,19 @@ public class CLang99CoreJudgeTest {
 		codeSubmission.setSourceCode("#include <stdio.h>\n" +
 			"int main() {\n" +
 			"   // printf() displays the string inside quotation\n" +
-			"   printf(\"Hello, World!\");\n" +
+			"   printf(\"Hello World!\");\n" +
 			"   return 0;\n" +
 			"}");
 
 		Testcase tc1 = new Testcase();
 		tc1.setName("TC1");
 		tc1.setInputFilePath(this.masterProperties.getProperty("kjudge.stageDirectory") + "/input");
+		tc1.setExpectedOutputFilePath(this.masterProperties.getProperty("kjudge.stageDirectory") + "/expectedOutput");
 
 		Testcase tc2 = new Testcase();
 		tc2.setName("TC2");
 		tc2.setInputFilePath(this.masterProperties.getProperty("kjudge.stageDirectory") + "/input");
+		tc2.setExpectedOutputFilePath(this.masterProperties.getProperty("kjudge.stageDirectory") + "/expectedOutput");
 
 		Map<Language, Integer> map = new HashMap<>();
 		map.put(Language.C_99, 100);

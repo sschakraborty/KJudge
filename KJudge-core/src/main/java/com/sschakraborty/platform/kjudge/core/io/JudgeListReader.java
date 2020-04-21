@@ -8,7 +8,6 @@ import com.sschakraborty.platform.kjudge.error.errorCode.JudgeErrorCode;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,10 +20,25 @@ public class JudgeListReader {
 
 	public JudgeListReader() throws AbstractBusinessException {
 		InputStream inputStream = this.getResourceFile();
-		this.bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+		this.bufferedReader = IOUtility.wrapReader(inputStream);
 		this.activeJudges = new ArrayList<>();
 		this.inactiveJudges = new ArrayList<>();
 		this.readJudges();
+		this.cleanUpRoutine();
+	}
+
+	private void cleanUpRoutine() throws AbstractBusinessException {
+		try {
+			this.bufferedReader.close();
+		} catch (IOException e) {
+			ExceptionUtility.throwGenericException(
+				JudgeErrorCode.IO_ERROR_IN_PROCESS_EXEC,
+				String.format(
+					"Error while cleaning up judge list reader: %s",
+					e.getMessage()
+				)
+			);
+		}
 	}
 
 	private InputStream getResourceFile() throws AbstractBusinessException {

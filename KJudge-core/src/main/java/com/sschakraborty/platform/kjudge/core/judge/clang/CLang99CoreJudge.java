@@ -23,8 +23,21 @@ public class CLang99CoreJudge extends AbstractCLangJudge {
 		int timeLimit = submission.getProblem().getTimeConstraint()
 			.getTimeConstraints().get(Language.C_99);
 
+		String testcaseOutputFileName;
+
 		for (Testcase testcase : submission.getProblem().getTestcases()) {
-			runProgram(submission, testcase, baseDirectory, timeLimit);
+			testcaseOutputFileName = runProgram(
+				submission,
+				testcase,
+				baseDirectory,
+				timeLimit
+			);
+
+			compareOutput(
+				baseDirectory,
+				testcaseOutputFileName,
+				testcase.getExpectedOutputFilePath()
+			);
 		}
 		return null;
 	}

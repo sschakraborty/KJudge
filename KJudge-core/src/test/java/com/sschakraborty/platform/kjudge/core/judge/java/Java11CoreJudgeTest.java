@@ -26,7 +26,7 @@ public class Java11CoreJudgeTest {
 		codeSubmission.setLanguage(Language.JAVA_11);
 		codeSubmission.setSourceCode("class Solution {\n" +
 			"    public static void main(String[] args) {\n" +
-			"        var str = \"Hello World! - Java 11\";\n" +
+			"        var str = \"Hello World!\";\n" +
 			"        System.out.println(str);\n" +
 			"    }\n" +
 			"}");
@@ -34,10 +34,12 @@ public class Java11CoreJudgeTest {
 		Testcase tc1 = new Testcase();
 		tc1.setName("TC1");
 		tc1.setInputFilePath(this.masterProperties.getProperty("kjudge.stageDirectory") + "/input");
+		tc1.setExpectedOutputFilePath(this.masterProperties.getProperty("kjudge.stageDirectory") + "/expectedOutput");
 
 		Testcase tc2 = new Testcase();
 		tc2.setName("TC2");
 		tc2.setInputFilePath(this.masterProperties.getProperty("kjudge.stageDirectory") + "/input");
+		tc2.setExpectedOutputFilePath(this.masterProperties.getProperty("kjudge.stageDirectory") + "/expectedOutput");
 
 		Map<Language, Integer> map = new HashMap<>();
 		map.put(Language.JAVA_11, 1000);
