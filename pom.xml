@@ -12,6 +12,7 @@
     <description>KJudge Project</description>
 
     <properties>
+        <trunk.version>0.0.1-SNAPSHOT</trunk.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <mvn-compiler-plugin.version>3.8.1</mvn-compiler-plugin.version>
         <hibernate.version>5.4.14.Final</hibernate.version>

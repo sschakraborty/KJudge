@@ -16,13 +16,13 @@
         <dependency>
             <groupId>com.sschakraborty.platform.kjudge</groupId>
             <artifactId>kjudge-error</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${trunk.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.sschakraborty.platform.kjudge</groupId>
             <artifactId>kjudge-shared</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${trunk.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
