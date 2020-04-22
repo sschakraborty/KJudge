@@ -24,7 +24,7 @@ public class Python3CoreJudgeTest {
 	public void performJudgement() throws AbstractBusinessException {
 		CodeSubmission codeSubmission = new CodeSubmission();
 		codeSubmission.setLanguage(Language.PYTHON_3);
-		codeSubmission.setSourceCode("print(\"Hello World!\");");
+		codeSubmission.setSourceCode("print(input());");
 
 		Testcase tc1 = new Testcase();
 		tc1.setName("TC1");

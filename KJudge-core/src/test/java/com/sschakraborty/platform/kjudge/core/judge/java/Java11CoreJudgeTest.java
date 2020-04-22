@@ -24,10 +24,14 @@ public class Java11CoreJudgeTest {
 	public void performJudgement() throws AbstractBusinessException {
 		CodeSubmission codeSubmission = new CodeSubmission();
 		codeSubmission.setLanguage(Language.JAVA_11);
-		codeSubmission.setSourceCode("class Solution {\n" +
+		codeSubmission.setSourceCode("import java.util.Scanner;\n" +
+			"\n" +
+			"class Main {\n" +
 			"    public static void main(String[] args) {\n" +
-			"        var str = \"Hello World!\";\n" +
-			"        System.out.println(str);\n" +
+			"        var in = new Scanner(System.in);\n" +
+			"        var line = in.nextLine();\n" +
+			"        System.out.println(line);\n" +
+			"        in.close();\n" +
 			"    }\n" +
 			"}");
 

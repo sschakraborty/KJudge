@@ -24,9 +24,14 @@ public class Java8CoreJudgeTest {
 	public void performJudgement() throws AbstractBusinessException {
 		CodeSubmission codeSubmission = new CodeSubmission();
 		codeSubmission.setLanguage(Language.JAVA_8);
-		codeSubmission.setSourceCode("class Solution {\n" +
+		codeSubmission.setSourceCode("import java.util.Scanner;\n" +
+			"\n" +
+			"class Main {\n" +
 			"    public static void main(String[] args) {\n" +
-			"        System.out.println(\"Hello World!\");\n" +
+			"        Scanner in = new Scanner(System.in);\n" +
+			"        String line = in.nextLine();\n" +
+			"        System.out.println(line);\n" +
+			"        in.close();\n" +
 			"    }\n" +
 			"}");
 

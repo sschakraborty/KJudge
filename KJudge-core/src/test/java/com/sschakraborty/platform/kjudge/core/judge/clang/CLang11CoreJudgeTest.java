@@ -25,10 +25,13 @@ public class CLang11CoreJudgeTest {
 		CodeSubmission codeSubmission = new CodeSubmission();
 		codeSubmission.setLanguage(Language.C_11);
 		codeSubmission.setSourceCode("#include <stdio.h>\n" +
-			"int main() {\n" +
-			"   // printf() displays the string inside quotation\n" +
-			"   printf(\"Hello World!\");\n" +
-			"   return 0;\n" +
+			"\n" +
+			"int main()\n" +
+			"{\n" +
+			"    char string[150];\n" +
+			"    fgets(string, 150, stdin);\n" +
+			"    fprintf(stdout, \"%s\", string);\n" +
+			"    return 0;\n" +
 			"}");
 
 		Testcase tc1 = new Testcase();

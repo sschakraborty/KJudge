@@ -24,10 +24,13 @@ public class Cpp11CoreJudgeTest {
 	public void performJudgement() throws AbstractBusinessException {
 		CodeSubmission codeSubmission = new CodeSubmission();
 		codeSubmission.setLanguage(Language.CPP_11);
-		codeSubmission.setSourceCode("#include <iostream>\n" +
+		codeSubmission.setSourceCode("#include <cstdio>\n" +
 			"\n" +
-			"int main() {\n" +
-			"    std::cout << \"Hello World!\";\n" +
+			"int main()\n" +
+			"{\n" +
+			"    char string[150];\n" +
+			"    fgets(string, 150, stdin);\n" +
+			"    fprintf(stdout, \"%s\", string);\n" +
 			"    return 0;\n" +
 			"}");
 
