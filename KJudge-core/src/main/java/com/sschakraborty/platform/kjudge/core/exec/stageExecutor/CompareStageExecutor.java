@@ -124,13 +124,14 @@ public class CompareStageExecutor extends AbstractStageExecutor {
 				this.compareLine(actualOutputLine, expectedOutputLine);
 			}
 
-			while ((expectedOutputLine = expectedOutputReader.readLine()) != null) {
+			while (expectedOutputLine != null) {
 				if (expectedOutputLine.trim().length() > 0) {
 					ExceptionUtility.throwGenericException(
 						JudgeErrorCode.WRONG_ANSWER_ERROR,
 						"Actual output of the solution is smaller than the expected output!"
 					);
 				}
+				expectedOutputLine = expectedOutputReader.readLine();
 			}
 
 			while ((actualOutputLine = actualOutputReader.readLine()) != null) {
