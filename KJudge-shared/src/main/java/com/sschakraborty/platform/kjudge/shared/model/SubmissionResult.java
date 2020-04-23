@@ -6,6 +6,7 @@ public class SubmissionResult {
 	private Submission submission;
 	private boolean compilationError;
 	private String compilationErrorMessage;
+	private OutputCode outputCode;
 
 	private List<SubmissionResultUnit> resultUnits;
 
@@ -39,5 +40,13 @@ public class SubmissionResult {
 
 	public void setCompilationErrorMessage(String compilationErrorMessage) {
 		this.compilationErrorMessage = compilationErrorMessage;
+	}
+
+	public OutputCode getOutputCode() {
+		return outputCode;
+	}
+
+	public void setOutputCode(OutputCode outputCode) {
+		this.outputCode = outputCode;
 	}
 }

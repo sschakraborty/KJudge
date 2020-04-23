@@ -12,7 +12,8 @@ public enum JudgeErrorCode implements ErrorCode {
 	COMPILATION_TIME_OUT("Compilation time limit exceeded!"),
 	THREAD_INTERRUPTED("Judge thread interrupted!"),
 	RUN_TIME_LIMIT_EXCEEDED("Run time limit exceeded!"),
-	WRONG_ANSWER_ERROR("Wrong answer / solution provided!");
+	WRONG_ANSWER_ERROR("Wrong answer / solution provided!"),
+	RUNTIME_ERROR("Error occurred while running the program!");
 
 	private final String message;
 

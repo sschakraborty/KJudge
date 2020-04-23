@@ -4,10 +4,12 @@ import com.sschakraborty.platform.kjudge.error.errorCode.ErrorCode;
 
 public abstract class AbstractBusinessException extends Exception {
 	private ErrorCode errorCode;
+	private String errorDump;
 
 	public AbstractBusinessException(ErrorCode errorCode, String message) {
 		super(message);
 		this.errorCode = errorCode;
+		this.errorDump = "";
 	}
 
 	public ErrorCode getErrorCode() {
@@ -17,5 +19,13 @@ public abstract class AbstractBusinessException extends Exception {
 	@Override
 	public String toString() {
 		return ExceptionMessageBuilder.buildMessage(this);
+	}
+
+	public String getErrorDump() {
+		return errorDump;
+	}
+
+	public void setErrorDump(String errorDump) {
+		this.errorDump = errorDump;
 	}
 }

@@ -14,4 +14,12 @@
     <description>
         KJudge Shared classes
     </description>
+    <dependencies>
+        <dependency>
+            <groupId>com.sschakraborty.platform.kjudge</groupId>
+            <artifactId>kjudge-error</artifactId>
+            <version>${trunk.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 </project>

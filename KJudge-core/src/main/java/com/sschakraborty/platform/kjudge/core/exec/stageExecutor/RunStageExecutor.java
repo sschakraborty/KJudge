@@ -23,7 +23,6 @@ public class RunStageExecutor extends AbstractStageExecutor {
 	private int ioLimit;
 
 	private String inputFilePath;
-	private String errOutput;
 
 	public RunStageExecutor(String runId, String runBasePath, String runProgram, String baseDirectory) {
 		super(baseDirectory);
@@ -85,62 +84,68 @@ public class RunStageExecutor extends AbstractStageExecutor {
 		this.inputFilePath = inputFilePath;
 	}
 
-	public String getErrOutput() {
-		return errOutput;
-	}
-
-	public void setErrOutput(String errOutput) {
-		this.errOutput = errOutput;
-	}
-
 	@Override
 	public void execute() throws AbstractBusinessException {
 		final ProcessBuilder processBuilder = constructProcessBuilder();
-		this.errOutput = performExecution(processBuilder);
+		performExecution(processBuilder);
 	}
 
-	private String performExecution(ProcessBuilder processBuilder) throws AbstractBusinessException {
+	private void performExecution(ProcessBuilder processBuilder) throws AbstractBusinessException {
 		StringBuilder error = new StringBuilder();
 		try {
-			Process process = processBuilder.start();
-			process.waitFor(this.timeLimit, TimeUnit.MILLISECONDS);
+			try {
+				Process process = processBuilder.start();
+				process.waitFor(this.timeLimit, TimeUnit.MILLISECONDS);
 
-			if (process.isAlive()) {
-				process.destroyForcibly();
+				if (process.isAlive()) {
+					process.destroyForcibly();
+					ExceptionUtility.throwGenericException(
+						JudgeErrorCode.RUN_TIME_LIMIT_EXCEEDED,
+						String.format(
+							"Time limit exceeded for RunId (%s)!",
+							this.runId
+						)
+					);
+				}
+
+				String temp;
+				final BufferedReader bufferedReader = IOUtility.wrapReader(process.getErrorStream());
+				while ((temp = bufferedReader.readLine()) != null && temp.length() > 0) {
+					error.append(temp).append("\n");
+				}
+				bufferedReader.close();
+
+				if (error.length() > 0) {
+					ExceptionUtility.throwGenericException(
+						JudgeErrorCode.RUNTIME_ERROR,
+						String.format(
+							"Error occurred while running the program (RunId: %s)!",
+							this.runId
+						)
+					);
+				}
+			} catch (IOException e) {
 				ExceptionUtility.throwGenericException(
-					JudgeErrorCode.RUN_TIME_LIMIT_EXCEEDED,
+					JudgeErrorCode.IO_ERROR_IN_PROCESS_EXEC,
 					String.format(
-						"Time limit exceeded for RunId (%s)!",
-						this.runId
+						"IO error while judging: %s",
+						e.getMessage()
+					)
+				);
+			} catch (InterruptedException e) {
+				ExceptionUtility.throwGenericException(
+					JudgeErrorCode.THREAD_INTERRUPTED,
+					String.format(
+						"Thread (%s) interrupted while judging code: %s",
+						Thread.currentThread().getName(),
+						e.getMessage()
 					)
 				);
 			}
-
-			String temp;
-			final BufferedReader bufferedReader = IOUtility.wrapReader(process.getErrorStream());
-			while ((temp = bufferedReader.readLine()) != null && temp.length() > 0) {
-				error.append(temp).append("\n");
-			}
-			bufferedReader.close();
-		} catch (IOException e) {
-			ExceptionUtility.throwGenericException(
-				JudgeErrorCode.IO_ERROR_IN_PROCESS_EXEC,
-				String.format(
-					"IO error while judging: %s",
-					e.getMessage()
-				)
-			);
-		} catch (InterruptedException e) {
-			ExceptionUtility.throwGenericException(
-				JudgeErrorCode.THREAD_INTERRUPTED,
-				String.format(
-					"Thread (%s) interrupted while judging code: %s",
-					Thread.currentThread().getName(),
-					e.getMessage()
-				)
-			);
+		} catch (AbstractBusinessException e) {
+			e.setErrorDump(error.toString());
+			throw e;
 		}
-		return error.toString();
 	}
 
 	private ProcessBuilder constructProcessBuilder() throws AbstractBusinessException {

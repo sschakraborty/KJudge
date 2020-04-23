@@ -59,20 +59,25 @@ public class CompileStageExecutor extends AbstractStageExecutor {
 		}
 		stringBuilder.deleteCharAt(stringBuilder.length() - 1);
 
-		String output = ProcessUtility.executeSystemCommand(
+		final String output = ProcessUtility.executeSystemCommand(
 			constructBaseDirectory(),
 			stringBuilder.toString()
 		);
 
-		if (this.compareOutput && !output.equals(this.expectedOutput)) {
-			ExceptionUtility.throwGenericException(
-				JudgeErrorCode.COMPILATION_ERROR,
-				String.format(
-					"Compilation error for %s at %s!",
-					this.compilerProgram,
-					this.compilerBasePath
-				)
-			);
+		try {
+			if (this.compareOutput && !output.equals(this.expectedOutput)) {
+				ExceptionUtility.throwGenericException(
+					JudgeErrorCode.COMPILATION_ERROR,
+					String.format(
+						"Compilation error for %s at %s!",
+						this.compilerProgram,
+						this.compilerBasePath
+					)
+				);
+			}
+		} catch (AbstractBusinessException e) {
+			e.setErrorDump(output);
+			throw e;
 		}
 	}
 }
