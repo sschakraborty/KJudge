@@ -19,9 +19,17 @@ public class Java8CoreJudge extends AbstractJavaJudge {
 	}
 
 	@Override
-	public SubmissionResult performJudgement(Submission submission) throws AbstractBusinessException {
+	public void performJudgement(Submission submission) throws AbstractBusinessException {
+		SubmissionResult submissionResult = fetchSubmissionResult(submission);
 		String baseDir = writeSubmissionToStageArea(submission, FILE_NAME);
-		compileProgram(baseDir, FILE_NAME);
+
+		try {
+			compileProgram(baseDir, FILE_NAME);
+		} catch (AbstractBusinessException e) {
+			fillCompilationError(submissionResult, e);
+			throw e;
+		}
+
 		String mainClass = getMainClassName(baseDir);
 
 		int timeConstraint = submission.getProblem().getTimeConstraint()
@@ -30,22 +38,28 @@ public class Java8CoreJudge extends AbstractJavaJudge {
 		String testcaseOutputFileName;
 
 		for (Testcase testcase : submission.getProblem().getTestcases()) {
-			testcaseOutputFileName = runProgram(
-				submission,
-				testcase,
-				mainClass,
-				baseDir,
-				timeConstraint
-			);
+			try {
+				testcaseOutputFileName = runProgram(
+					submission,
+					testcase,
+					mainClass,
+					baseDir,
+					timeConstraint
+				);
 
-			compareOutput(
-				baseDir,
-				testcaseOutputFileName,
-				testcase.getExpectedOutputFilePath()
-			);
+				compareOutput(
+					baseDir,
+					testcaseOutputFileName,
+					testcase.getExpectedOutputFilePath()
+				);
+
+				fillSuccess(submissionResult, testcase);
+			} catch (AbstractBusinessException e) {
+				if (fillRuntimeError(submissionResult, testcase, e)) {
+					throw e;
+				}
+			}
 		}
-
-		return null;
 	}
 
 	@Override

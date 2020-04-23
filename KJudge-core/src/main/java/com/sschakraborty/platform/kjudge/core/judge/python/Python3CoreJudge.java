@@ -19,7 +19,8 @@ public class Python3CoreJudge extends AbstractPythonJudge {
 	}
 
 	@Override
-	public SubmissionResult performJudgement(Submission submission) throws AbstractBusinessException {
+	public void performJudgement(Submission submission) throws AbstractBusinessException {
+		SubmissionResult submissionResult = fetchSubmissionResult(submission);
 		String baseDirectory = writeSubmissionToStageArea(submission, FILE_NAME);
 		int timeLimit = submission.getProblem().getTimeConstraint()
 			.getTimeConstraints().get(Language.PYTHON_3);
@@ -27,21 +28,28 @@ public class Python3CoreJudge extends AbstractPythonJudge {
 		String testcaseOutputFileName;
 
 		for (Testcase testcase : submission.getProblem().getTestcases()) {
-			testcaseOutputFileName = runProgram(
-				submission,
-				testcase,
-				FILE_NAME,
-				baseDirectory,
-				timeLimit
-			);
+			try {
+				testcaseOutputFileName = runProgram(
+					submission,
+					testcase,
+					FILE_NAME,
+					baseDirectory,
+					timeLimit
+				);
 
-			compareOutput(
-				baseDirectory,
-				testcaseOutputFileName,
-				testcase.getExpectedOutputFilePath()
-			);
+				compareOutput(
+					baseDirectory,
+					testcaseOutputFileName,
+					testcase.getExpectedOutputFilePath()
+				);
+
+				fillSuccess(submissionResult, testcase);
+			} catch (AbstractBusinessException e) {
+				if (fillRuntimeError(submissionResult, testcase, e)) {
+					throw e;
+				}
+			}
 		}
-		return null;
 	}
 
 	@Override

@@ -4,8 +4,11 @@ import com.sschakraborty.platform.kjudge.core.exec.stageExecutor.CompareStageExe
 import com.sschakraborty.platform.kjudge.core.io.IOUtility;
 import com.sschakraborty.platform.kjudge.core.io.PropertyFileReader;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
-import com.sschakraborty.platform.kjudge.shared.model.Submission;
+import com.sschakraborty.platform.kjudge.error.errorCode.JudgeErrorCode;
+import com.sschakraborty.platform.kjudge.shared.model.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public abstract class AbstractJudge implements Judge {
@@ -47,6 +50,51 @@ public abstract class AbstractJudge implements Judge {
 		CompareStageExecutor executor;
 		executor = new CompareStageExecutor(baseDirectory, fileName, expectedOutputFilePath);
 		executor.execute();
+	}
+
+	protected final void fillCompilationError(SubmissionResult submissionResult, AbstractBusinessException e) {
+		if (e.getErrorCode() == JudgeErrorCode.COMPILATION_ERROR) {
+			submissionResult.setCompilationError(true);
+		}
+		submissionResult.setOutputCode(OutputCode.mapOutputCode(e.getErrorCode()));
+		submissionResult.setCompilationErrorMessage(e.getErrorDump());
+	}
+
+	protected final boolean fillRuntimeError(SubmissionResult submissionResult, Testcase testcase, AbstractBusinessException e) {
+		SubmissionResultUnit submissionResultUnit = new SubmissionResultUnit();
+		submissionResultUnit.setTestcase(testcase);
+		submissionResultUnit.setOutputCode(OutputCode.mapOutputCode(e.getErrorCode()));
+		submissionResultUnit.setOutputString(e.getErrorDump());
+
+		putResultUnit(submissionResult, submissionResultUnit);
+		return submissionResultUnit.getOutputCode() == OutputCode.INTERNAL_ERROR;
+	}
+
+	protected final void fillSuccess(SubmissionResult submissionResult, Testcase testcase) {
+		SubmissionResultUnit submissionResultUnit = new SubmissionResultUnit();
+		submissionResultUnit.setTestcase(testcase);
+		submissionResultUnit.setOutputCode(OutputCode.ACCEPTED);
+		submissionResultUnit.setOutputString("");
+		putResultUnit(submissionResult, submissionResultUnit);
+	}
+
+	protected final SubmissionResult fetchSubmissionResult(Submission submission) {
+		SubmissionResult submissionResult = submission.getSubmissionResult();
+		if (submissionResult == null) {
+			submissionResult = new SubmissionResult();
+			submission.setSubmissionResult(submissionResult);
+			submissionResult.setSubmission(submission);
+		}
+		return submissionResult;
+	}
+
+	private void putResultUnit(SubmissionResult submissionResult, SubmissionResultUnit submissionResultUnit) {
+		List<SubmissionResultUnit> submissionResultUnits = submissionResult.getResultUnits();
+		if (submissionResultUnits == null) {
+			submissionResultUnits = new ArrayList<>();
+			submissionResult.setResultUnits(submissionResultUnits);
+		}
+		submissionResultUnits.add(submissionResultUnit);
 	}
 
 	protected abstract void checkPropertiesPresent() throws AbstractBusinessException;

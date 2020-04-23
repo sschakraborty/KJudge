@@ -6,7 +6,6 @@ import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
 import com.sschakraborty.platform.kjudge.error.ExceptionUtility;
 import com.sschakraborty.platform.kjudge.error.errorCode.JudgeErrorCode;
 import com.sschakraborty.platform.kjudge.shared.model.Submission;
-import com.sschakraborty.platform.kjudge.shared.model.SubmissionResult;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -38,11 +37,7 @@ public class JudgeEntryPoint {
 		}
 	}
 
-	public SubmissionResult performJudgement(Submission submission) throws AbstractBusinessException {
-		Judge judge = this.judgeSelector.select(submission);
-		if (judge != null) {
-			return judge.performJudgement(submission);
-		}
-		return null;
+	public void performJudgement(Submission submission) throws AbstractBusinessException {
+		this.judgeSelector.select(submission).performJudgement(submission);
 	}
 }

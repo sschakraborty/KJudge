@@ -26,6 +26,10 @@ public abstract class AbstractBusinessException extends Exception {
 	}
 
 	public void setErrorDump(String errorDump) {
-		this.errorDump = errorDump;
+		if (errorDump != null) {
+			this.errorDump = errorDump;
+		} else {
+			this.errorDump = "";
+		}
 	}
 }
