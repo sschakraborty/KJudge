@@ -3,8 +3,9 @@ package com.sschakraborty.platform.kjudge.shared.model;
 import java.util.List;
 
 public class SubmissionResult {
-	private Problem problem;
 	private Submission submission;
+	private boolean compilationError;
+	private String compilationErrorMessage;
 
 	private List<SubmissionResultUnit> resultUnits;
 
@@ -16,19 +17,27 @@ public class SubmissionResult {
 		this.resultUnits = resultUnits;
 	}
 
-	public Problem getProblem() {
-		return problem;
-	}
-
-	public void setProblem(Problem problem) {
-		this.problem = problem;
-	}
-
 	public Submission getSubmission() {
 		return submission;
 	}
 
 	public void setSubmission(Submission submission) {
 		this.submission = submission;
+	}
+
+	public boolean isCompilationError() {
+		return compilationError;
+	}
+
+	public void setCompilationError(boolean compilationError) {
+		this.compilationError = compilationError;
+	}
+
+	public String getCompilationErrorMessage() {
+		return compilationErrorMessage;
+	}
+
+	public void setCompilationErrorMessage(String compilationErrorMessage) {
+		this.compilationErrorMessage = compilationErrorMessage;
 	}
 }
