@@ -10,35 +10,34 @@ import org.hibernate.StatelessSession;
 
 public class DefaultSessionProvider implements SessionProvider {
 	private final SessionFactoryProvider sessionFactoryProvider;
-	private SessionFactory sessionFactory;
 
 	public DefaultSessionProvider(SessionFactoryProvider sessionFactoryProvider) throws AbstractBusinessException {
 		this.sessionFactoryProvider = sessionFactoryProvider;
 		if (this.sessionFactoryProvider == null) {
 			ExceptionUtility.throwGenericException(StandardErrorCode.OBJECT_CANNOT_BE_NULL, "Session factory provider cannot be null!");
 		}
-		this.fetchSessionFactory(sessionFactoryProvider);
 	}
 
-	private void fetchSessionFactory(SessionFactoryProvider sessionFactoryProvider) throws AbstractBusinessException {
-		this.sessionFactory = sessionFactoryProvider.getSessionFactory();
-		if (this.sessionFactory == null) {
+	private SessionFactory fetchSessionFactory() throws AbstractBusinessException {
+		final SessionFactory sessionFactory = this.sessionFactoryProvider.getSessionFactory();
+		if (sessionFactory == null) {
 			ExceptionUtility.throwGenericException(StandardErrorCode.OBJECT_CANNOT_BE_NULL, "Session factory provider provided a null session factory!");
 		}
+		return sessionFactory;
 	}
 
 	@Override
-	public Session openSession() {
-		return sessionFactory.openSession();
+	public Session openSession() throws AbstractBusinessException {
+		return fetchSessionFactory().openSession();
 	}
 
 	@Override
-	public StatelessSession openStatelessSession() {
-		return sessionFactory.openStatelessSession();
+	public StatelessSession openStatelessSession() throws AbstractBusinessException {
+		return fetchSessionFactory().openStatelessSession();
 	}
 
 	@Override
-	public Session getCurrentSession() {
-		return sessionFactory.getCurrentSession();
+	public Session getCurrentSession() throws AbstractBusinessException {
+		return fetchSessionFactory().getCurrentSession();
 	}
 }

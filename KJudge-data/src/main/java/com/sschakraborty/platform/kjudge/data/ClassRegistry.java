@@ -1,4 +1,4 @@
-package com.sschakraborty.platform.kjudge.data.dataProvider;
+package com.sschakraborty.platform.kjudge.data;
 
 import com.sschakraborty.platform.kjudge.shared.model.CodeSubmission;
 

@@ -1,14 +1,15 @@
 package com.sschakraborty.platform.kjudge.data.dataProvider;
 
+import com.sschakraborty.platform.kjudge.data.ClassRegistry;
 import com.sschakraborty.platform.kjudge.data.sessionFactoryProvider.PropertiesFileSessionFactoryProvider;
 import com.sschakraborty.platform.kjudge.data.sessionFactoryProvider.SessionFactoryProvider;
 import com.sschakraborty.platform.kjudge.data.sessionProvider.DefaultSessionProvider;
 import com.sschakraborty.platform.kjudge.data.sessionProvider.SessionProvider;
 import com.sschakraborty.platform.kjudge.data.transactionProvider.StatefulSessionTransactionProvider;
 import com.sschakraborty.platform.kjudge.data.transactionProvider.StatelessSessionTransactionProvider;
-import com.sschakraborty.platform.kjudge.data.transactionProvider.TransactionProvider;
+import com.sschakraborty.platform.kjudge.data.unit.StatefulTransactionUnit;
+import com.sschakraborty.platform.kjudge.data.unit.StatelessTransactionUnit;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
-import org.hibernate.Transaction;
 
 import java.util.List;
 
@@ -17,8 +18,8 @@ public class DefaultDataProvider implements DataProvider {
 
 	private final SessionFactoryProvider sessionFactoryProvider;
 	private final SessionProvider sessionProvider;
-	private final TransactionProvider statefulTransactionProvider;
-	private final TransactionProvider statelessTransactionProvider;
+	private final StatefulSessionTransactionProvider statefulTransactionProvider;
+	private final StatelessSessionTransactionProvider statelessTransactionProvider;
 
 	public DefaultDataProvider() throws AbstractBusinessException {
 		this.sessionFactoryProvider = buildSessionFactoryProvider(this.loadClasses());
@@ -31,11 +32,11 @@ public class DefaultDataProvider implements DataProvider {
 		return ClassRegistry.getClassList();
 	}
 
-	private TransactionProvider buildStatelessTransactionProvider() throws AbstractBusinessException {
+	private StatelessSessionTransactionProvider buildStatelessTransactionProvider() throws AbstractBusinessException {
 		return new StatelessSessionTransactionProvider(this.sessionProvider);
 	}
 
-	private TransactionProvider buildStatefulTransactionProvider() throws AbstractBusinessException {
+	private StatefulSessionTransactionProvider buildStatefulTransactionProvider() throws AbstractBusinessException {
 		return new StatefulSessionTransactionProvider(this.sessionProvider);
 	}
 
@@ -50,12 +51,12 @@ public class DefaultDataProvider implements DataProvider {
 	}
 
 	@Override
-	public Transaction statefulTransaction() throws AbstractBusinessException {
+	public StatefulTransactionUnit statefulTransaction() throws AbstractBusinessException {
 		return this.statefulTransactionProvider.newTransaction();
 	}
 
 	@Override
-	public Transaction statelessTransaction() throws AbstractBusinessException {
+	public StatelessTransactionUnit statelessTransaction() throws AbstractBusinessException {
 		return this.statelessTransactionProvider.newTransaction();
 	}
 }
