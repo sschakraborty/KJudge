@@ -1,8 +1,33 @@
 package com.sschakraborty.platform.kjudge.shared.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "USER")
 public class User {
+	@Id
+	@Column(
+		name = "PRINCIPAL",
+		length = 25
+	)
 	private String principal;
+
+	@Column(
+		name = "PASSWORD",
+		nullable = false,
+		length = 64
+	)
 	private String password;
+
+	@JoinColumn(
+		name = "PRINCIPAL",
+		nullable = false
+	)
+	@OneToOne(
+		cascade = CascadeType.ALL,
+		fetch = FetchType.EAGER
+	)
+	@MapsId
 	private UserProfile userProfile;
 
 	public String getPrincipal() {

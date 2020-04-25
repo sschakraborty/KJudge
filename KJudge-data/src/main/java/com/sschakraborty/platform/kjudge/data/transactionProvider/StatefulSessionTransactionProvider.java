@@ -9,7 +9,6 @@ import org.hibernate.Session;
 
 public class StatefulSessionTransactionProvider implements TransactionProvider {
 	private final SessionProvider sessionProvider;
-	private Session session;
 
 	public StatefulSessionTransactionProvider(SessionProvider sessionProvider) throws AbstractBusinessException {
 		this.sessionProvider = sessionProvider;
@@ -18,29 +17,31 @@ public class StatefulSessionTransactionProvider implements TransactionProvider {
 		}
 	}
 
-	private void fetchSession() throws AbstractBusinessException {
-		this.session = this.sessionProvider.openSession();
-		if (this.session == null) {
+	private Session fetchSession() throws AbstractBusinessException {
+		Session session = this.sessionProvider.openSession();
+		if (session == null) {
 			ExceptionUtility.throwGenericException(StandardErrorCode.OBJECT_CANNOT_BE_NULL, "Session provider provided a null session!");
 		}
+		return session;
 	}
 
-	private void currentSession() throws AbstractBusinessException {
-		this.session = this.sessionProvider.getCurrentSession();
-		if (this.session == null) {
+	private Session currentSession() throws AbstractBusinessException {
+		Session session = this.sessionProvider.getCurrentSession();
+		if (session == null) {
 			ExceptionUtility.throwGenericException(StandardErrorCode.OBJECT_CANNOT_BE_NULL, "Session provider provided a null session!");
 		}
+		return session;
 	}
 
 	@Override
 	public StatefulTransactionUnit newTransaction() throws AbstractBusinessException {
-		this.fetchSession();
-		return new StatefulTransactionUnit(this.session, this.session.beginTransaction());
+		Session session = this.fetchSession();
+		return new StatefulTransactionUnit(session, session.beginTransaction());
 	}
 
 	@Override
 	public StatefulTransactionUnit getCurrentTransaction() throws AbstractBusinessException {
-		this.currentSession();
-		return new StatefulTransactionUnit(this.session, this.session.getTransaction());
+		Session session = this.currentSession();
+		return new StatefulTransactionUnit(session, session.getTransaction());
 	}
 }

@@ -9,7 +9,6 @@ import org.hibernate.StatelessSession;
 
 public class StatelessSessionTransactionProvider implements TransactionProvider {
 	private final SessionProvider sessionProvider;
-	private StatelessSession session;
 
 	public StatelessSessionTransactionProvider(SessionProvider sessionProvider) throws AbstractBusinessException {
 		this.sessionProvider = sessionProvider;
@@ -18,22 +17,23 @@ public class StatelessSessionTransactionProvider implements TransactionProvider 
 		}
 	}
 
-	private void fetchSession() throws AbstractBusinessException {
-		this.session = this.sessionProvider.openStatelessSession();
-		if (this.session == null) {
+	private StatelessSession fetchSession() throws AbstractBusinessException {
+		StatelessSession statelessSession = this.sessionProvider.openStatelessSession();
+		if (statelessSession == null) {
 			ExceptionUtility.throwGenericException(StandardErrorCode.OBJECT_CANNOT_BE_NULL, "Session provider provided a null session!");
 		}
+		return statelessSession;
 	}
 
 	@Override
 	public StatelessTransactionUnit newTransaction() throws AbstractBusinessException {
-		this.fetchSession();
-		return new StatelessTransactionUnit(this.session, this.session.beginTransaction());
+		StatelessSession statelessSession = this.fetchSession();
+		return new StatelessTransactionUnit(statelessSession, statelessSession.beginTransaction());
 	}
 
 	@Override
 	public StatelessTransactionUnit getCurrentTransaction() throws AbstractBusinessException {
-		this.fetchSession();
-		return new StatelessTransactionUnit(this.session, this.session.getTransaction());
+		StatelessSession statelessSession = this.fetchSession();
+		return new StatelessTransactionUnit(statelessSession, statelessSession.getTransaction());
 	}
 }

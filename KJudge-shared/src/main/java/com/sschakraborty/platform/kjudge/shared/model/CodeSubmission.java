@@ -7,13 +7,16 @@ import javax.persistence.*;
 public class CodeSubmission {
 	@Id
 	@SequenceGenerator(
-		name = "CODE_SUBMISSION_SEQ",
-		sequenceName = "CODE_SUBMISSION_SEQ",
+		name = "CODE_SUBMISSION_SEQ_GEN",
+		sequenceName = "CODE_SUBMISSION_SEQ_GEN",
 		allocationSize = 1
 	)
 	@GeneratedValue(
 		strategy = GenerationType.SEQUENCE,
-		generator = "CODE_SUBMISSION_SEQ"
+		generator = "CODE_SUBMISSION_SEQ_GEN"
+	)
+	@Column(
+		name = "ID"
 	)
 	private long id;
 
@@ -21,6 +24,7 @@ public class CodeSubmission {
 		name = "LANGUAGE",
 		nullable = false
 	)
+	@Enumerated(EnumType.STRING)
 	private Language language;
 
 	@Lob
