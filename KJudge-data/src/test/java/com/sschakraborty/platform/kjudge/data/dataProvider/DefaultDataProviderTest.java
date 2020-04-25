@@ -22,7 +22,7 @@ public class DefaultDataProviderTest {
 		transaction.getSession().close();
 
 		transaction = defaultDataProvider.statefulTransaction();
-		CodeSubmission fetched = transaction.getSession().get(CodeSubmission.class, (long) 1);
+		CodeSubmission fetched = transaction.getSession().get(CodeSubmission.class, codeSubmission.getId());
 		transaction.getSession().close();
 
 		Assert.assertEquals(codeSubmission.getId(), fetched.getId());

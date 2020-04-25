@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 public class CodingEvent {
 	@Id
 	@Column(
-		name = "EVENT_HANDLE"
+		name = "EVENT_HANDLE",
+		length = 25
 	)
 	String eventHandle;
 

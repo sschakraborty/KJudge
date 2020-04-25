@@ -73,4 +73,34 @@ public class GeneralModelTest {
 
 		genericDAO.save(timeConstraint);
 	}
+
+	@Test
+	public void insertMemoryConstraints() throws AbstractBusinessException {
+		GenericDAO genericDAO = new GenericDAO();
+
+		MemoryConstraint memoryConstraint = new MemoryConstraint();
+		memoryConstraint.setDescription("Hello World!");
+
+		Map<Language, Integer> map = new HashMap<>();
+		map.put(Language.JAVA_8, 2000);
+		map.put(Language.CPP_14, 500);
+		memoryConstraint.setMemoryConstraints(map);
+
+		genericDAO.save(memoryConstraint);
+	}
+
+	@Test
+	public void insertIOConstraints() throws AbstractBusinessException {
+		GenericDAO genericDAO = new GenericDAO();
+
+		IOConstraint ioConstraint = new IOConstraint();
+		ioConstraint.setDescription("Hello World!");
+
+		Map<Language, Integer> map = new HashMap<>();
+		map.put(Language.JAVA_8, 2000);
+		map.put(Language.CPP_14, 500);
+		ioConstraint.setOutputLimits(map);
+
+		genericDAO.save(ioConstraint);
+	}
 }
