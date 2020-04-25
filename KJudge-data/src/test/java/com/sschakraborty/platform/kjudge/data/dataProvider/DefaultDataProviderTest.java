@@ -28,5 +28,10 @@ public class DefaultDataProviderTest {
 		Assert.assertEquals(codeSubmission.getId(), fetched.getId());
 		Assert.assertEquals(codeSubmission.getLanguage(), fetched.getLanguage());
 		Assert.assertEquals(codeSubmission.getSourceCode(), fetched.getSourceCode());
+
+		transaction = defaultDataProvider.statefulTransaction();
+		transaction.getSession().delete(codeSubmission);
+		transaction.getTransaction().commit();
+		transaction.getSession().close();
 	}
 }

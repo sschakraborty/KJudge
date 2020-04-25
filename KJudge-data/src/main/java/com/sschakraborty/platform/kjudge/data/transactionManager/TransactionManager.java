@@ -12,9 +12,9 @@ public class TransactionManager {
 		this.dataProvider = dataProvider;
 	}
 
-	public <T> T executeStatefulJob(final StatefulTransactionJob job) throws AbstractBusinessException {
+	public <T> T[] executeStatefulJob(final StatefulTransactionJob job) throws AbstractBusinessException {
 		final StatefulTransactionUnit transactionUnit = (StatefulTransactionUnit) this.dataProvider.statefulTransaction();
-		T result = null;
+		T[] result = null;
 		try {
 			result = job.execute(transactionUnit);
 			transactionUnit.getTransaction().commit();
@@ -27,9 +27,9 @@ public class TransactionManager {
 		return result;
 	}
 
-	public <T> T executeStatelessJob(final StatelessTransactionJob job) throws AbstractBusinessException {
+	public <T> T[] executeStatelessJob(final StatelessTransactionJob job) throws AbstractBusinessException {
 		final StatelessTransactionUnit transactionUnit = (StatelessTransactionUnit) this.dataProvider.statelessTransaction();
-		T result = null;
+		T[] result = null;
 		try {
 			result = job.execute(transactionUnit);
 			transactionUnit.getTransaction().commit();

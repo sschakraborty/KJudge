@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassRegistry {
-	private static final List<Class> classList = new ArrayList<>();
+	private static final List<Class> CLASS_LIST = new ArrayList<>();
 
 	static {
-		classList.add(CodeSubmission.class);
-//		classList.add(CodingEvent.class);
-//		classList.add(CodingEventType.class);
-//		classList.add(IOConstraint.class);
-//		classList.add(Problem.class);
+		CLASS_LIST.add(CodeSubmission.class);
+//		CLASS_LIST.add(CodingEvent.class);
+//		CLASS_LIST.add(CodingEventType.class);
+//		CLASS_LIST.add(IOConstraint.class);
+//		CLASS_LIST.add(Problem.class);
 	}
 
 	public static final List<Class> getClassList() {
-		return classList;
+		return CLASS_LIST;
 	}
 }
