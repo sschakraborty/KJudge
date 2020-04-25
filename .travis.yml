@@ -2,6 +2,15 @@ language: java
 jdk:
     - openjdk8
     - oraclejdk8
-install: mvn package -D skipTests
+    - oraclejdk11
+    - openjdk11
+install: mvn clean install -D skipTests
 script: skip
 dist: trusty
+notifications:
+    email:
+        recipients:
+            - subhadrasundar@gmail.com
+            - sschakraborty@hotmail.com
+        on_success: always
+        on_failure: always
