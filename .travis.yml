@@ -4,3 +4,4 @@ jdk:
     - oraclejdk8
 install: mvn package -D skipTests
 script: skip
+dist: trusty
