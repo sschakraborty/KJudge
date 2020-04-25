@@ -27,6 +27,23 @@
             <version>${trunk.version}</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sschakraborty.platform.kjudge</groupId>
+            <artifactId>kjudge-shared</artifactId>
+            <version>${trunk.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.connectorj.version}</version>
+        </dependency>
     </dependencies>
 
 </project>

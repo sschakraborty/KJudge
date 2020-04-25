@@ -17,6 +17,7 @@
         <mvn-compiler-plugin.version>3.8.1</mvn-compiler-plugin.version>
         <hibernate.version>5.4.14.Final</hibernate.version>
         <junit.version>4.13</junit.version>
+        <mysql.connectorj.version>8.0.19</mysql.connectorj.version>
     </properties>
 
     <modules>
