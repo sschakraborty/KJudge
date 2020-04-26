@@ -21,6 +21,14 @@ public class SubmissionResult {
 	)
 	private long id;
 
+	@JoinColumn(
+		name = "SUBMISSION_ID",
+		nullable = false
+	)
+	@OneToOne(
+		fetch = FetchType.LAZY,
+		cascade = CascadeType.ALL
+	)
 	private Submission submission;
 
 	@Column(
