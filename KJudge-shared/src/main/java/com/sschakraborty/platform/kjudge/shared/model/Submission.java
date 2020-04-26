@@ -1,13 +1,71 @@
 package com.sschakraborty.platform.kjudge.shared.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "SUBMISSION")
 public class Submission {
-	private int id;
+	@Id
+	@SequenceGenerator(
+		name = "SUBMISSION_SEQ_GEN",
+		sequenceName = "SUBMISSION_SEQ_GEN",
+		allocationSize = 1
+	)
+	@GeneratedValue(
+		strategy = GenerationType.SEQUENCE,
+		generator = "SUBMISSION_SEQ_GEN"
+	)
+	@Column(
+		name = "ID"
+	)
+	private long id;
+
+	@JoinColumn(
+		name = "PROBLEM_HANDLE",
+		nullable = false
+	)
+	@ManyToOne(
+		fetch = FetchType.LAZY,
+		cascade = CascadeType.ALL
+	)
 	private Problem problem;
+
+	@JoinColumn(
+		name = "ID",
+		nullable = false
+	)
+	@OneToOne(
+		fetch = FetchType.LAZY,
+		cascade = CascadeType.ALL
+	)
+	@MapsId
 	private CodeSubmission codeSubmission;
+
+	@JoinColumn(
+		name = "SUBMISSION_RESULT_ID",
+		nullable = false
+	)
+	@OneToOne(
+		fetch = FetchType.LAZY,
+		cascade = CascadeType.ALL
+	)
 	private SubmissionResult submissionResult;
+
+	@Column(
+		name = "SUBMISSION_DT",
+		nullable = false
+	)
 	private LocalDateTime dateTime;
+
+	@JoinColumn(
+		name = "SUBMITTER_PRINCIPAL",
+		nullable = false
+	)
+	@ManyToOne(
+		fetch = FetchType.LAZY,
+		cascade = CascadeType.ALL
+	)
 	private User submitter;
 
 	public Submission() {
@@ -72,11 +130,11 @@ public class Submission {
 		this.submitter = submitter;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 }
