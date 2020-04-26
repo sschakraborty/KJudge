@@ -38,5 +38,17 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.sschakraborty.platform.kjudge</groupId>
+            <artifactId>kjudge-shared</artifactId>
+            <version>${trunk.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sschakraborty.platform.kjudge</groupId>
+            <artifactId>kjudge-data</artifactId>
+            <version>${trunk.version}</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 </project>
