@@ -2,7 +2,6 @@ package com.sschakraborty.platform.kjudge.security.crypto;
 
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
 import com.sschakraborty.platform.kjudge.error.ExceptionUtility;
-import com.sschakraborty.platform.kjudge.error.GenericException;
 import com.sschakraborty.platform.kjudge.error.errorCode.SecurityErrorCode;
 
 import java.io.UnsupportedEncodingException;
@@ -30,7 +29,7 @@ public class Base64Utility {
 		return Base64.getUrlEncoder().encodeToString(bytes);
 	}
 
-	public static String base64UrlDecode(String payload) throws GenericException {
+	public static String base64UrlDecode(String payload) throws AbstractBusinessException {
 		try {
 			return new String(Base64.getUrlDecoder().decode(payload), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
