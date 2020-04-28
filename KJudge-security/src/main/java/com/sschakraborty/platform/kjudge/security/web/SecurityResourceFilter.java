@@ -25,6 +25,10 @@ public class SecurityResourceFilter implements Handler<RoutingContext> {
 		String authorization = request.getHeader("Authorization");
 
 		if (authorization == null) {
+			authorization = getCookieAuthorizationValue(routingContext);
+		}
+
+		if (authorization == null) {
 			fail(routingContext);
 		} else {
 			authorization = authorization.trim();
@@ -40,6 +44,14 @@ public class SecurityResourceFilter implements Handler<RoutingContext> {
 					handleRequest(jwtString, routingContext);
 				}
 			}
+		}
+	}
+
+	private String getCookieAuthorizationValue(RoutingContext routingContext) {
+		try {
+			return "Bearer " + routingContext.getCookie("Authorization").getValue();
+		} catch (Exception e) {
+			return null;
 		}
 	}
 
