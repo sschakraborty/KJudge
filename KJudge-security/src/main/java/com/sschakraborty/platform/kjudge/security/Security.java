@@ -16,7 +16,7 @@ public class Security {
 	private static final String AUTH_ROOT = "/sso/auth";
 	private static final String LOGIN_PATH = AUTH_ROOT + "/login";
 	private static final String REDIRECT_PARAM_NAME = "redirect";
-	private static final String STATIC_RESOURCE_PATH = "/resource";
+	private static final String STATIC_RESOURCE_PATH = AUTH_ROOT + "/resource";
 
 	private final Router authRouter;
 	private final SecurityLoginHandler loginHandler;

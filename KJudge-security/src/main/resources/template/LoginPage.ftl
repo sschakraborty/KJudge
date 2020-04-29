@@ -6,7 +6,7 @@
 	      name="viewport">
 	<meta content="ie=edge" http-equiv="X-UA-Compatible">
 	<title>Login - Security</title>
-	<link href="/resource/chota.min.css" rel="stylesheet"/>
+	<link href="/sso/auth/resource/chota.min.css" rel="stylesheet"/>
 	<style>
 		html, body {
 			padding: 0px;
