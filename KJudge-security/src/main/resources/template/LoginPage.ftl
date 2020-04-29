@@ -8,16 +8,11 @@
 	<title>Login - Security</title>
 	<link href="/resource/chota.min.css" rel="stylesheet"/>
 	<style>
-			html, body {
-				padding: 0px;
-				margin: 0px;
-				overflow: hidden !important;
-			}
-
-
-
-
-
+		html, body {
+			padding: 0px;
+			margin: 0px;
+			overflow: hidden !important;
+		}
 	</style>
 </head>
 <body>
