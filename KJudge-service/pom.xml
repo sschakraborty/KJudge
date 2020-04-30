@@ -14,4 +14,24 @@
     <description>
         KJudge Service and Web Endpoints
     </description>
+    <dependencies>
+        <dependency>
+            <groupId>com.sschakraborty.platform.kjudge</groupId>
+            <artifactId>kjudge-data</artifactId>
+            <version>${trunk.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sschakraborty.platform.kjudge</groupId>
+            <artifactId>kjudge-core</artifactId>
+            <version>${trunk.version}</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sschakraborty.platform.kjudge</groupId>
+            <artifactId>kjudge-security</artifactId>
+            <version>${trunk.version}</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 </project>

@@ -9,6 +9,8 @@ import com.sschakraborty.platform.kjudge.data.unit.StatefulTransactionUnit;
 import com.sschakraborty.platform.kjudge.data.unit.StatelessTransactionUnit;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -87,5 +89,19 @@ public class GenericDAO {
 			list.add((T) object);
 		}
 		return list;
+	}
+
+	public <T> T fetchFull(Class<T> typeClass, Serializable id) throws AbstractBusinessException {
+		final Object[] objects = this.transactionManager.executeStatefulJob(new StatefulTransactionJob() {
+			@Override
+			public Object[] execute(StatefulTransactionUnit transactionUnit) {
+				final EntityManagerFactory entityManagerFactory = transactionUnit.getSession().getEntityManagerFactory();
+				final EntityManager entityManager = entityManagerFactory.createEntityManager();
+				final Object[] objects = new Object[1];
+				objects[0] = entityManager.find(typeClass, id);
+				return objects;
+			}
+		});
+		return (T) objects[0];
 	}
 }
