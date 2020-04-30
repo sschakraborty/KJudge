@@ -3,6 +3,7 @@ package com.sschakraborty.platform.kjudge.data.modelTest;
 import com.sschakraborty.platform.kjudge.data.GenericDAO;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
 import com.sschakraborty.platform.kjudge.shared.model.*;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.time.LocalDateTime;
@@ -11,9 +12,23 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GeneralModelTest {
+	private static GenericDAO genericDAO;
+
+	@BeforeClass
+	public static void init() {
+		try {
+			genericDAO = new GenericDAO();
+		} catch (AbstractBusinessException e) {
+		}
+	}
+
+	public GenericDAO getGenericDAO() throws AbstractBusinessException {
+		return this.genericDAO;
+	}
+
 	@Test
 	public void codeSubmissionInsert() throws AbstractBusinessException {
-		GenericDAO genericDAO = new GenericDAO();
+		GenericDAO genericDAO = getGenericDAO();
 		CodeSubmission codeSubmission = new CodeSubmission();
 		codeSubmission.setLanguage(Language.CPP_17);
 		codeSubmission.setSourceCode("#include<iostream>");
@@ -22,7 +37,7 @@ public class GeneralModelTest {
 
 	@Test
 	public void userInsert() throws AbstractBusinessException {
-		GenericDAO genericDAO = new GenericDAO();
+		GenericDAO genericDAO = getGenericDAO();
 		UserProfile userProfile = new UserProfile();
 		userProfile.setUserPrincipal("USER1234");
 		userProfile.setFirstName("Subhadra");
@@ -46,7 +61,7 @@ public class GeneralModelTest {
 
 	@Test
 	public void codingEventInsert() throws AbstractBusinessException {
-		GenericDAO genericDAO = new GenericDAO();
+		GenericDAO genericDAO = getGenericDAO();
 
 		CodingEvent codingEvent = new CodingEvent();
 		codingEvent.setEventHandle("JUNE420");
@@ -61,7 +76,7 @@ public class GeneralModelTest {
 
 	@Test
 	public void insertTimeConstraints() throws AbstractBusinessException {
-		GenericDAO genericDAO = new GenericDAO();
+		GenericDAO genericDAO = getGenericDAO();
 
 		TimeConstraint timeConstraint = new TimeConstraint();
 		timeConstraint.setDescription("Hello World!");
@@ -76,7 +91,7 @@ public class GeneralModelTest {
 
 	@Test
 	public void insertMemoryConstraints() throws AbstractBusinessException {
-		GenericDAO genericDAO = new GenericDAO();
+		GenericDAO genericDAO = getGenericDAO();
 
 		MemoryConstraint memoryConstraint = new MemoryConstraint();
 		memoryConstraint.setDescription("Hello World!");
@@ -91,7 +106,7 @@ public class GeneralModelTest {
 
 	@Test
 	public void insertIOConstraints() throws AbstractBusinessException {
-		GenericDAO genericDAO = new GenericDAO();
+		GenericDAO genericDAO = getGenericDAO();
 
 		IOConstraint ioConstraint = new IOConstraint();
 		ioConstraint.setDescription("Hello World!");
