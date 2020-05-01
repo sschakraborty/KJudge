@@ -7,7 +7,7 @@
 	<meta content="ie=edge" http-equiv="X-UA-Compatible">
 	<title>${pageTitle}</title>
 	<link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" rel="stylesheet"/>
+	<link href="/resources/fontawesome/css/all.min.css" rel="stylesheet"/>
 	<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet"/>
 	<style type="text/css">
 			*:not(i) {
@@ -17,7 +17,6 @@
 			.navbar-brand {
 				margin-right: 50px;
 			}
-
 	</style>
 </head>
 <body>
@@ -118,4 +117,5 @@
 </body>
 <script src="/resources/jquery/jquery.min.js" type="text/javascript"></script>
 <script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/resources/fontawesome/js/all.min.js" type="text/javascript"></script>
 </html>

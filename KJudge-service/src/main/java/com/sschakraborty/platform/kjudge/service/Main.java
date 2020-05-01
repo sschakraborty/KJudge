@@ -11,6 +11,7 @@ public class Main {
 			final Application application = new Application(portNumber);
 			application.init();
 			LoggingUtility.logger().info("KJudge started successfully!");
+			LoggingUtility.consoleLogger().info("<----- [STARTED KSystem Judge] ----->");
 		} catch (AbstractBusinessException e) {
 			LoggingUtility.logger().error(e);
 		}
