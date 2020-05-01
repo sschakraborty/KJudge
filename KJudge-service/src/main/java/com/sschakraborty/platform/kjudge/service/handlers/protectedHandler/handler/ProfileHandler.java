@@ -16,8 +16,12 @@ public class ProfileHandler extends AbstractRouteHandler {
 	}
 
 	@Override
-	public String getRouteURL() {
-		return "/profile/:handle";
+	public String[] getRouteURLArray() {
+		return new String[]{
+			"/profile/:handle",
+			"/profile/",
+			"/profile"
+		};
 	}
 
 	@Override

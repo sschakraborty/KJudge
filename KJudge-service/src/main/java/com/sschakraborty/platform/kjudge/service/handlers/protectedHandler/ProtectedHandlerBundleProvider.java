@@ -22,7 +22,9 @@ public class ProtectedHandlerBundleProvider implements HandlerBundleProvider {
 	@Override
 	public void applyRoutes(Router router) {
 		for (RouteHandler handler : this.routeHandlers) {
-			router.route(handler.getRouteMethod(), handler.getRouteURL()).handler(handler);
+			for (String url : handler.getRouteURLArray()) {
+				router.route(handler.getRouteMethod(), url).handler(handler);
+			}
 		}
 	}
 }
