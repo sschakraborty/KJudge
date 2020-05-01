@@ -47,14 +47,19 @@ public abstract class AbstractRouteHandler implements RouteHandler {
 		return acceptHeader;
 	}
 
-	private void renderThroughTemplate(
-		JsonObject data,
-		String templatePath,
-		RoutingContext routingContext
-	) {
+	private void renderThroughTemplate(JsonObject data, String templatePath, RoutingContext routingContext) {
 		this.getTemplateEngine().render(data, templatePath, result -> {
 			if (result.succeeded()) {
-				routingContext.response().end(result.result());
+				final JsonObject indexPageData = new JsonObject();
+				indexPageData.put("pageTitle", "Generic Page Title");
+				indexPageData.put("pageBody", result.result().toString());
+				this.getTemplateEngine().render(indexPageData, "template/master/Index", finalResult -> {
+					if (finalResult.succeeded()) {
+						routingContext.response().end(finalResult.result());
+					} else {
+						routingContext.fail(500);
+					}
+				});
 			} else {
 				routingContext.fail(500);
 			}
