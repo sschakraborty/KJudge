@@ -2,6 +2,7 @@ package com.sschakraborty.platform.kjudge.security.web;
 
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
 import com.sschakraborty.platform.kjudge.error.errorCode.SecurityErrorCode;
+import com.sschakraborty.platform.kjudge.error.logger.LoggingUtility;
 import com.sschakraborty.platform.kjudge.security.AccessToken;
 import com.sschakraborty.platform.kjudge.security.authentication.AuthenticationManager;
 import com.sschakraborty.platform.kjudge.security.credential.DatabaseAuthenticationCredential;
@@ -55,6 +56,7 @@ public class SecurityLoginHandler implements Handler<RoutingContext> {
 			this.authenticationManager.authenticate(credential);
 			handleSuccessfulAuthentication(routingContext, principal);
 		} catch (AbstractBusinessException e) {
+			LoggingUtility.logger().error(e);
 			if (e.getErrorCode() == SecurityErrorCode.INVALID_PRINCIPAL_LOGIN_ATTEMPT) {
 				serveLoginPage(routingContext, INVALID_PRINCPAL);
 			} else if (e.getErrorCode() == SecurityErrorCode.INVALID_CREDENTIALS) {
@@ -71,6 +73,7 @@ public class SecurityLoginHandler implements Handler<RoutingContext> {
 			final String jwtString = JWTUtility.encodeIntoJWTString(accessToken);
 			postLoginRedirect(routingContext, jwtString);
 		} catch (AbstractBusinessException e) {
+			LoggingUtility.logger().error(e);
 			routingContext.fail(500);
 		}
 	}
@@ -115,6 +118,7 @@ public class SecurityLoginHandler implements Handler<RoutingContext> {
 		try {
 			return Base64Utility.base64UrlDecode(redirectURL);
 		} catch (AbstractBusinessException e) {
+			LoggingUtility.logger().error(e);
 			return "/";
 		}
 	}

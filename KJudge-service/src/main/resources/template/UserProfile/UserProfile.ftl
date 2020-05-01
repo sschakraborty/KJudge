@@ -8,6 +8,7 @@
 	<title>Document</title>
 </head>
 <body>
-Hello ${userProfile.firstName}!
+Hello ${userProfile.firstName} ${userProfile.lastName}!
+Emails: ${userProfile.emails}
 </body>
 </html>

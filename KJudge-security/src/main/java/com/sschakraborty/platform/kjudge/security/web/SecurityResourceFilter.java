@@ -1,6 +1,7 @@
 package com.sschakraborty.platform.kjudge.security.web;
 
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
+import com.sschakraborty.platform.kjudge.error.logger.LoggingUtility;
 import com.sschakraborty.platform.kjudge.security.AccessToken;
 import com.sschakraborty.platform.kjudge.security.crypto.Base64Utility;
 import com.sschakraborty.platform.kjudge.security.jwt.JWTUtility;
@@ -61,6 +62,7 @@ public class SecurityResourceFilter implements Handler<RoutingContext> {
 			routingContext.put("ACCESS_TOKEN", accessToken);
 			routingContext.next();
 		} catch (AbstractBusinessException e) {
+			LoggingUtility.logger().error(e);
 			fail(routingContext);
 		}
 	}
@@ -92,6 +94,7 @@ public class SecurityResourceFilter implements Handler<RoutingContext> {
 		try {
 			return Base64Utility.base64UrlEncode(retURL);
 		} catch (AbstractBusinessException e) {
+			LoggingUtility.logger().error(e);
 			return "";
 		}
 	}

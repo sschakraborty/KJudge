@@ -2,6 +2,7 @@ package com.sschakraborty.platform.kjudge.service;
 
 import com.sschakraborty.platform.kjudge.data.GenericDAO;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
+import com.sschakraborty.platform.kjudge.error.logger.LoggingUtility;
 import com.sschakraborty.platform.kjudge.security.Security;
 import com.sschakraborty.platform.kjudge.service.handlers.HandlerBundleProvider;
 import com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.ProtectedHandlerBundleProvider;
@@ -35,13 +36,16 @@ public class Application {
 		final HttpServer httpServer = this.vertx.createHttpServer();
 		this.security.bindToServer(httpServer);
 		httpServer.listen(this.portNumber);
+		LoggingUtility.logger().info("Thin client running at port {}!", this.portNumber);
 	}
 
 	private void applyRoutes() {
 		HandlerBundleProvider provider = new PublicHandlerBundleProvider();
+		LoggingUtility.logger().info("Applying public routes!");
 		provider.applyRoutes(this.security.router());
 		this.security.applyFilter();
 		provider = new ProtectedHandlerBundleProvider(this.genericDAO, this.templateEngine);
+		LoggingUtility.logger().info("Applying protected routes!");
 		provider.applyRoutes(this.security.router());
 	}
 }

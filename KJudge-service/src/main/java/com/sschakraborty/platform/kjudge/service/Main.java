@@ -1,14 +1,18 @@
 package com.sschakraborty.platform.kjudge.service;
 
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
+import com.sschakraborty.platform.kjudge.error.logger.LoggingUtility;
 
 public class Main {
 	public static void main(String[] args) {
+		LoggingUtility.logger().info("Starting KJudge!");
 		try {
-			final Application application = new Application(12400);
+			final int portNumber = 12400;
+			final Application application = new Application(portNumber);
 			application.init();
+			LoggingUtility.logger().info("KJudge started successfully!");
 		} catch (AbstractBusinessException e) {
-			// TODO: Log it!
+			LoggingUtility.logger().error(e);
 		}
 	}
 }

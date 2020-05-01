@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="LogToConsole" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d [%-5p] %F(%M:%L) –--------- %n%m%n"/>
+        </Console>
+        <RollingFile name="LogToRollingFile" fileName="logs/KJudge.log"
+                     filePattern="logs/$${date:yyyy-MM}/KJudge-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d [%-5p] %F(%M:%L) –--------- %n%m%n</Pattern>
+            </PatternLayout>
+            <append>true</append>
+            <immediateFlush>true</immediateFlush>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="2 MB"/>
+            </Policies>
+        </RollingFile>
+        <RollingFile name="LogToRollingFileDefault" fileName="logs/Default.log"
+                     filePattern="logs/$${date:yyyy-MM}/Default-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout>
+                <Pattern>%d [%-5p] %F(%M:%L) –--------- %n%m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="2 MB"/>
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="KJudge.CONSOLE_LOGGER" level="INFO" additivity="false">
+            <AppenderRef ref="LogToConsole"/>
+        </Logger>
+        <Logger name="KJudge.FILE_LOGGER" level="TRACE" additivity="false">
+            <AppenderRef ref="LogToRollingFile"/>
+        </Logger>
+        <Root level="ALL">
+            <AppenderRef ref="LogToRollingFileDefault"/>
+        </Root>
+    </Loggers>
+</Configuration>

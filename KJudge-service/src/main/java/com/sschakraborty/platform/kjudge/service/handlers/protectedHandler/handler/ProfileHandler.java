@@ -2,6 +2,7 @@ package com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.hand
 
 import com.sschakraborty.platform.kjudge.data.GenericDAO;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
+import com.sschakraborty.platform.kjudge.error.logger.LoggingUtility;
 import com.sschakraborty.platform.kjudge.service.handlers.AbstractRouteHandler;
 import com.sschakraborty.platform.kjudge.shared.model.UserProfile;
 import io.vertx.core.http.HttpMethod;
@@ -41,6 +42,7 @@ public class ProfileHandler extends AbstractRouteHandler {
 				routingContext.fail(404);
 			}
 		} catch (AbstractBusinessException e) {
+			LoggingUtility.logger().error(e);
 			routingContext.fail(500);
 		}
 	}
