@@ -1,7 +1,9 @@
 package com.sschakraborty.platform.kjudge.service.handlers;
 
 import com.sschakraborty.platform.kjudge.data.GenericDAO;
+import com.sschakraborty.platform.kjudge.error.logger.LoggingUtility;
 import com.sschakraborty.platform.kjudge.security.AccessToken;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.common.template.TemplateEngine;
@@ -39,6 +41,42 @@ public abstract class AbstractRouteHandler implements RouteHandler {
 		}
 	}
 
+	@Override
+	public final void handle(RoutingContext routingContext) {
+		final HttpMethod method = routingContext.request().method();
+		if (method == HttpMethod.GET) {
+			doGet(routingContext);
+		} else if (method == HttpMethod.POST) {
+			doPost(routingContext);
+		} else if (method == HttpMethod.PUT) {
+			doPut(routingContext);
+		} else if (method == HttpMethod.DELETE) {
+			doDelete(routingContext);
+		} else {
+			doDefault(routingContext);
+		}
+	}
+
+	public void doDefault(RoutingContext routingContext) {
+		routingContext.fail(405);
+	}
+
+	public void doDelete(RoutingContext routingContext) {
+		routingContext.fail(501);
+	}
+
+	public void doPut(RoutingContext routingContext) {
+		routingContext.fail(501);
+	}
+
+	public void doPost(RoutingContext routingContext) {
+		routingContext.fail(501);
+	}
+
+	public void doGet(RoutingContext routingContext) {
+		routingContext.fail(501);
+	}
+
 	private String fetchAcceptHeader(final RoutingContext routingContext) {
 		final String acceptHeader = routingContext.request().getHeader("Accept");
 		if (acceptHeader == null || !acceptHeader.equals("application/json")) {
@@ -48,7 +86,9 @@ public abstract class AbstractRouteHandler implements RouteHandler {
 	}
 
 	private void renderThroughTemplate(JsonObject data, String templatePath, RoutingContext routingContext) {
-		this.getTemplateEngine().render(data, templatePath, result -> {
+		final JsonObject modelData = new JsonObject();
+		modelData.put("model", data.encodePrettily());
+		this.getTemplateEngine().render(modelData, templatePath, result -> {
 			if (result.succeeded()) {
 				final JsonObject indexPageData = new JsonObject();
 				indexPageData.put("pageTitle", "Generic Page Title");
@@ -64,5 +104,14 @@ public abstract class AbstractRouteHandler implements RouteHandler {
 				routingContext.fail(500);
 			}
 		});
+	}
+
+	protected JsonObject extractModel(RoutingContext routingContext) {
+		try {
+			return new JsonObject(routingContext.request().getFormAttribute("model"));
+		} catch (Exception e) {
+			LoggingUtility.logger().error(e);
+			return null;
+		}
 	}
 }

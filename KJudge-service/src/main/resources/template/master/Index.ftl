@@ -18,6 +18,10 @@
 				margin-right: 50px;
 			}
 	</style>
+	<script src="/resources/jquery/jquery.min.js" type="text/javascript"></script>
+	<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/resources/vue/vue.min.js" type="text/javascript"></script>
+	<script src="/resources/fontawesome/js/all.min.js" type="text/javascript"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -32,25 +36,26 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-				<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				<a class="nav-link" href="#">Dashboard</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Product</a>
+				<a class="nav-link" href="#">Profile</a>
 			</li>
 
 			<li class="nav-item dropdown">
 				<a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle" data-toggle="dropdown"
 				   href="#" id="navbarDropdown" role="button">
-					Solutions
+					Programming
 				</a>
 				<div aria-labelledby="navbarDropdown" class="dropdown-menu">
-					<a class="dropdown-item" href="#">Retail</a>
-					<a class="dropdown-item" href="#">Banking</a>
-					<a class="dropdown-item" href="#">QSRs</a>
-					<a class="dropdown-item" href="#">Convenience stores</a>
+					<a class="dropdown-item" href="#">All Problems</a>
+					<a class="dropdown-item" href="#">Contests</a>
+					<a class="dropdown-item" href="#">Others</a>
+					<a class="dropdown-item" href="#">Leaderboard</a>
 					<a class="dropdown-item" href="#">Hospitality</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">Others</a>
+					<a class="dropdown-item" href="#">Templates</a>
+					<a class="dropdown-item" href="#">Instructions</a>
 				</div>
 			</li>
 
@@ -115,7 +120,4 @@
 </div>
 
 </body>
-<script src="/resources/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="/resources/fontawesome/js/all.min.js" type="text/javascript"></script>
 </html>

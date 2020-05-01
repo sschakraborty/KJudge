@@ -10,6 +10,7 @@ import com.sschakraborty.platform.kjudge.service.handlers.publicHandler.PublicHa
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.common.template.TemplateEngine;
+import io.vertx.ext.web.handler.ErrorHandler;
 import io.vertx.ext.web.templ.freemarker.FreeMarkerTemplateEngine;
 
 public class Application {
@@ -18,6 +19,7 @@ public class Application {
 	private final Security security;
 	private final int portNumber;
 	private final TemplateEngine templateEngine;
+	private final ErrorHandler errorHandler;
 
 	public Application(int portNumber) throws AbstractBusinessException {
 		this.vertx = Vertx.vertx();
@@ -25,6 +27,7 @@ public class Application {
 		this.security = new Security(this.vertx, this.genericDAO);
 		this.portNumber = portNumber;
 		this.templateEngine = FreeMarkerTemplateEngine.create(vertx);
+		this.errorHandler = ErrorHandler.create();
 	}
 
 	public void init() {
@@ -47,5 +50,6 @@ public class Application {
 		provider = new ProtectedHandlerBundleProvider(this.genericDAO, this.templateEngine);
 		LoggingUtility.logger().info("Applying protected routes!");
 		provider.applyRoutes(this.security.router());
+		this.security.router().route().handler(this.errorHandler);
 	}
 }

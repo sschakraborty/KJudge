@@ -3,9 +3,9 @@ package com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.hand
 import com.sschakraborty.platform.kjudge.data.GenericDAO;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
 import com.sschakraborty.platform.kjudge.error.logger.LoggingUtility;
+import com.sschakraborty.platform.kjudge.security.AccessToken;
 import com.sschakraborty.platform.kjudge.service.handlers.AbstractRouteHandler;
 import com.sschakraborty.platform.kjudge.shared.model.UserProfile;
-import io.vertx.core.http.HttpMethod;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.common.template.TemplateEngine;
@@ -25,12 +25,7 @@ public class ProfileHandler extends AbstractRouteHandler {
 	}
 
 	@Override
-	public HttpMethod getRouteMethod() {
-		return HttpMethod.GET;
-	}
-
-	@Override
-	public void handle(RoutingContext routingContext) {
+	public void doGet(RoutingContext routingContext) {
 		final String handle = generateHandle(routingContext);
 		try {
 			final UserProfile userProfile = getGenericDAO().fetchFull(UserProfile.class, handle);
@@ -48,6 +43,28 @@ public class ProfileHandler extends AbstractRouteHandler {
 		} catch (AbstractBusinessException e) {
 			LoggingUtility.logger().error(e);
 			routingContext.fail(500);
+		}
+	}
+
+	@Override
+	public void doPost(RoutingContext routingContext) {
+		final JsonObject modelJSON = extractModel(routingContext);
+		if (modelJSON == null) {
+			routingContext.fail(400);
+		} else {
+			try {
+				final UserProfile userProfile = modelJSON.getJsonObject("userProfile").mapTo(UserProfile.class);
+				final AccessToken accessToken = fetchAccessToken(routingContext);
+				if (userProfile == null || !accessToken.getUserPrincipal().equals(userProfile.getUserPrincipal())) {
+					routingContext.fail(400);
+				} else {
+					getGenericDAO().update(userProfile);
+					doGet(routingContext);
+				}
+			} catch (Exception e) {
+				LoggingUtility.logger().error(e);
+				routingContext.fail(400);
+			}
 		}
 	}
 

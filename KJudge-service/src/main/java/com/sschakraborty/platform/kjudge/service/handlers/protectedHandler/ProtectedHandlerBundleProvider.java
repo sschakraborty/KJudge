@@ -27,7 +27,7 @@ public class ProtectedHandlerBundleProvider implements HandlerBundleProvider {
 		router.route("/resources/*").handler(this.staticHandler);
 		for (RouteHandler handler : this.routeHandlers) {
 			for (String url : handler.getRouteURLArray()) {
-				router.route(handler.getRouteMethod(), url).handler(handler);
+				router.route(url).handler(handler);
 			}
 		}
 	}
