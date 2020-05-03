@@ -25,58 +25,45 @@ public class GenericDAOTest {
 		codeSubmission2.setLanguage(Language.PYTHON_2);
 		codeSubmission2.setSourceCode("print \"Hello!\"");
 
-		CodeSubmission[] codeSubmission = genericDAO.save(codeSubmission1, codeSubmission2);
+		List<CodeSubmission> codeSubmission = genericDAO.save(codeSubmission1, codeSubmission2);
 
 		codeSubmission1.setSourceCode("Wrong Source Code");
 		codeSubmission2.setSourceCode("Wrong Source Code");
 
-		CodeSubmission[] fetchSubmissions = genericDAO.update(codeSubmission1, codeSubmission2);
+		List<CodeSubmission> fetchSubmissions = genericDAO.update(codeSubmission1, codeSubmission2);
 
-		Assert.assertEquals(codeSubmission[0].getLanguage(), fetchSubmissions[0].getLanguage());
-		Assert.assertEquals(codeSubmission[1].getLanguage(), fetchSubmissions[1].getLanguage());
-		Assert.assertEquals(codeSubmission[0].getSourceCode(), fetchSubmissions[0].getSourceCode());
-		Assert.assertEquals(codeSubmission[1].getSourceCode(), fetchSubmissions[1].getSourceCode());
+		Assert.assertEquals(codeSubmission.get(0).getLanguage(), fetchSubmissions.get(0).getLanguage());
+		Assert.assertEquals(codeSubmission.get(1).getLanguage(), fetchSubmissions.get(1).getLanguage());
+		Assert.assertEquals(codeSubmission.get(0).getSourceCode(), fetchSubmissions.get(0).getSourceCode());
+		Assert.assertEquals(codeSubmission.get(1).getSourceCode(), fetchSubmissions.get(1).getSourceCode());
 
-		List<CodeSubmission> list = genericDAO.fetch(CodeSubmission.class, codeSubmission1.getId(), codeSubmission2.getId());
-		fetchSubmissions[0] = list.get(0);
-		fetchSubmissions[1] = list.get(1);
+		fetchSubmissions = genericDAO.fetch(CodeSubmission.class, codeSubmission1.getId(), codeSubmission2.getId());
 
-		Assert.assertEquals(codeSubmission[0].getLanguage(), fetchSubmissions[0].getLanguage());
-		Assert.assertEquals(codeSubmission[1].getLanguage(), fetchSubmissions[1].getLanguage());
-		Assert.assertEquals(codeSubmission[0].getSourceCode(), fetchSubmissions[0].getSourceCode());
-		Assert.assertEquals(codeSubmission[1].getSourceCode(), fetchSubmissions[1].getSourceCode());
+		Assert.assertEquals(codeSubmission.get(0).getLanguage(), fetchSubmissions.get(0).getLanguage());
+		Assert.assertEquals(codeSubmission.get(1).getLanguage(), fetchSubmissions.get(1).getLanguage());
+		Assert.assertEquals(codeSubmission.get(0).getSourceCode(), fetchSubmissions.get(0).getSourceCode());
+		Assert.assertEquals(codeSubmission.get(1).getSourceCode(), fetchSubmissions.get(1).getSourceCode());
 
 		codeSubmission1.setSourceCode("print(\"Hello!\")");
 		codeSubmission2.setSourceCode("print \"Hello!\"");
 
 		fetchSubmissions = genericDAO.saveOrUpdate(codeSubmission1, codeSubmission2);
 
-		Assert.assertEquals(codeSubmission[0].getLanguage(), fetchSubmissions[0].getLanguage());
-		Assert.assertEquals(codeSubmission[1].getLanguage(), fetchSubmissions[1].getLanguage());
-		Assert.assertEquals(codeSubmission[0].getSourceCode(), fetchSubmissions[0].getSourceCode());
-		Assert.assertEquals(codeSubmission[1].getSourceCode(), fetchSubmissions[1].getSourceCode());
+		Assert.assertEquals(codeSubmission.get(0).getLanguage(), fetchSubmissions.get(0).getLanguage());
+		Assert.assertEquals(codeSubmission.get(1).getLanguage(), fetchSubmissions.get(1).getLanguage());
+		Assert.assertEquals(codeSubmission.get(0).getSourceCode(), fetchSubmissions.get(0).getSourceCode());
+		Assert.assertEquals(codeSubmission.get(1).getSourceCode(), fetchSubmissions.get(1).getSourceCode());
 
-		list = genericDAO.fetch(CodeSubmission.class, codeSubmission1.getId(), codeSubmission2.getId());
-		fetchSubmissions[0] = list.get(0);
-		fetchSubmissions[1] = list.get(1);
-
-		Assert.assertEquals(codeSubmission[0].getLanguage(), fetchSubmissions[0].getLanguage());
-		Assert.assertEquals(codeSubmission[1].getLanguage(), fetchSubmissions[1].getLanguage());
-		Assert.assertEquals(codeSubmission[0].getSourceCode(), fetchSubmissions[0].getSourceCode());
-		Assert.assertEquals(codeSubmission[1].getSourceCode(), fetchSubmissions[1].getSourceCode());
+		Assert.assertEquals(codeSubmission.get(0).getLanguage(), fetchSubmissions.get(0).getLanguage());
+		Assert.assertEquals(codeSubmission.get(1).getLanguage(), fetchSubmissions.get(1).getLanguage());
+		Assert.assertEquals(codeSubmission.get(0).getSourceCode(), fetchSubmissions.get(0).getSourceCode());
+		Assert.assertEquals(codeSubmission.get(1).getSourceCode(), fetchSubmissions.get(1).getSourceCode());
 
 		fetchSubmissions = genericDAO.delete(codeSubmission1, codeSubmission2);
 
-		Assert.assertEquals(codeSubmission[0].getLanguage(), fetchSubmissions[0].getLanguage());
-		Assert.assertEquals(codeSubmission[1].getLanguage(), fetchSubmissions[1].getLanguage());
-		Assert.assertEquals(codeSubmission[0].getSourceCode(), fetchSubmissions[0].getSourceCode());
-		Assert.assertEquals(codeSubmission[1].getSourceCode(), fetchSubmissions[1].getSourceCode());
-
-		list = genericDAO.fetch(CodeSubmission.class, codeSubmission1.getId(), codeSubmission2.getId());
-		fetchSubmissions[0] = list.get(0);
-		fetchSubmissions[1] = list.get(1);
-
-		Assert.assertNull(fetchSubmissions[0]);
-		Assert.assertNull(fetchSubmissions[1]);
+		Assert.assertEquals(codeSubmission.get(0).getLanguage(), fetchSubmissions.get(0).getLanguage());
+		Assert.assertEquals(codeSubmission.get(1).getLanguage(), fetchSubmissions.get(1).getLanguage());
+		Assert.assertEquals(codeSubmission.get(0).getSourceCode(), fetchSubmissions.get(0).getSourceCode());
+		Assert.assertEquals(codeSubmission.get(1).getSourceCode(), fetchSubmissions.get(1).getSourceCode());
 	}
 }

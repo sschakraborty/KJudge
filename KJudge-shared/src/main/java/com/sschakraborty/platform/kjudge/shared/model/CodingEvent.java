@@ -1,5 +1,10 @@
 package com.sschakraborty.platform.kjudge.shared.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.sschakraborty.platform.kjudge.shared.model.jsonUtility.LocalDateDeserializer;
+import com.sschakraborty.platform.kjudge.shared.model.jsonUtility.LocalDateSerializer;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -44,12 +49,16 @@ public class CodingEvent {
 		name = "START_DT",
 		nullable = false
 	)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDateTime startTime;
 
 	@Column(
 		name = "END_DT",
 		nullable = false
 	)
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDateTime endTime;
 
 	public String getEventHandle() {

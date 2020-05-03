@@ -1,5 +1,5 @@
 <div class="row mt-3" id="app">
-	<form action="./" id="mainForm" method="POST" style="display: none !important;">
+	<form id="mainForm" method="POST" style="display: none !important;">
 		<input name="model" type="hidden" v-model="modelJSON"/>
 	</form>
 	<div class="col-3"></div>

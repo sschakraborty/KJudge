@@ -7,6 +7,8 @@ import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
 import com.sschakraborty.platform.kjudge.error.ExceptionUtility;
 import com.sschakraborty.platform.kjudge.error.errorCode.StandardErrorCode;
 
+import java.util.List;
+
 public class TransactionManager {
 	private final DataProvider dataProvider;
 
@@ -14,9 +16,9 @@ public class TransactionManager {
 		this.dataProvider = dataProvider;
 	}
 
-	public <T> T[] executeStatefulJob(final StatefulTransactionJob job) throws AbstractBusinessException {
+	public <T> List<T> executeStatefulJob(final StatefulTransactionJob job) throws AbstractBusinessException {
 		final StatefulTransactionUnit transactionUnit = (StatefulTransactionUnit) this.dataProvider.statefulTransaction();
-		T[] result = null;
+		List<T> result = null;
 		try {
 			result = job.execute(transactionUnit);
 			transactionUnit.getTransaction().commit();
@@ -29,9 +31,9 @@ public class TransactionManager {
 		return result;
 	}
 
-	public <T> T[] executeStatelessJob(final StatelessTransactionJob job) throws AbstractBusinessException {
+	public <T> List<T> executeStatelessJob(final StatelessTransactionJob job) throws AbstractBusinessException {
 		final StatelessTransactionUnit transactionUnit = (StatelessTransactionUnit) this.dataProvider.statelessTransaction();
-		T[] result = null;
+		List<T> result = null;
 		try {
 			result = job.execute(transactionUnit);
 			transactionUnit.getTransaction().commit();
