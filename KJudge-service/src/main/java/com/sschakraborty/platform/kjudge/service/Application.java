@@ -8,6 +8,7 @@ import com.sschakraborty.platform.kjudge.service.handlers.HandlerBundleProvider;
 import com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.ProtectedHandlerBundleProvider;
 import com.sschakraborty.platform.kjudge.service.handlers.publicHandler.PublicHandlerBundleProvider;
 import io.vertx.core.Vertx;
+import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.common.template.TemplateEngine;
 import io.vertx.ext.web.handler.ErrorHandler;
@@ -21,8 +22,8 @@ public class Application {
 	private final TemplateEngine templateEngine;
 	private final ErrorHandler errorHandler;
 
-	public Application(int portNumber) throws AbstractBusinessException {
-		this.vertx = Vertx.vertx();
+	public Application(int portNumber, VertxOptions vertxOptions) throws AbstractBusinessException {
+		this.vertx = Vertx.vertx(vertxOptions);
 		this.genericDAO = new GenericDAO();
 		this.security = new Security(this.vertx, this.genericDAO);
 		this.portNumber = portNumber;
