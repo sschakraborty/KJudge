@@ -1,4 +1,4 @@
-package com.sschakraborty.platform.kjudge.shared.model.jsonUtility;
+package com.sschakraborty.platform.kjudge.shared.jsonUtility;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;

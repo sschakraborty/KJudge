@@ -2,8 +2,8 @@ package com.sschakraborty.platform.kjudge.shared.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.sschakraborty.platform.kjudge.shared.model.jsonUtility.LocalDateDeserializer;
-import com.sschakraborty.platform.kjudge.shared.model.jsonUtility.LocalDateSerializer;
+import com.sschakraborty.platform.kjudge.shared.jsonUtility.LocalDateDeserializer;
+import com.sschakraborty.platform.kjudge.shared.jsonUtility.LocalDateSerializer;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
