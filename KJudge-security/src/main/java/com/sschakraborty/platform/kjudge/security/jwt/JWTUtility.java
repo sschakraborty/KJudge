@@ -51,7 +51,7 @@ public class JWTUtility {
 			ExceptionUtility.throwGenericException(
 				SecurityErrorCode.JWT_VERIFICATION_FAILED,
 				String.format(
-					"Acess token is invalid: %s",
+					"Access token is invalid: %s",
 					e.getMessage()
 				)
 			);
