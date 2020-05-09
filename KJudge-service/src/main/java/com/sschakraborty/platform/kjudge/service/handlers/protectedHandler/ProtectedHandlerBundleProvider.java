@@ -3,10 +3,7 @@ package com.sschakraborty.platform.kjudge.service.handlers.protectedHandler;
 import com.sschakraborty.platform.kjudge.data.GenericDAO;
 import com.sschakraborty.platform.kjudge.service.handlers.HandlerBundleProvider;
 import com.sschakraborty.platform.kjudge.service.handlers.RouteHandler;
-import com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.handler.CodingEventHandler;
-import com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.handler.CodingEventPageHandler;
-import com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.handler.ProblemPageHandler;
-import com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.handler.ProfileHandler;
+import com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.handler.*;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.common.template.TemplateEngine;
 import io.vertx.ext.web.handler.StaticHandler;
@@ -23,7 +20,8 @@ public class ProtectedHandlerBundleProvider implements HandlerBundleProvider {
 			new ProfileHandler(genericDAO, templateEngine),
 			new CodingEventHandler(genericDAO, templateEngine),
 			new CodingEventPageHandler(genericDAO, templateEngine),
-			new ProblemPageHandler(genericDAO, templateEngine)
+			new ProblemPageHandler(genericDAO, templateEngine),
+			new CreateProblemHandler(genericDAO, templateEngine)
 		);
 		this.staticHandler = StaticHandler.create("static");
 	}
