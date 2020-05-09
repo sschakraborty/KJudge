@@ -10,19 +10,34 @@
 	<link href="/resources/fontawesome/css/all.min.css" rel="stylesheet"/>
 	<link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet"/>
 	<style type="text/css">
-			*:not(i) {
-				font-family: 'Merriweather', serif !important;
-				outline: none !important;
-			}
-			.navbar-brand {
-				margin-right: 50px;
-			}
+		html, body {
+			font-family: 'Merriweather', serif !important;
+			outline: none !important;
+		}
+		.navbar-brand {
+			margin-right: 50px;
+		}
+
 	</style>
 	<script src="/resources/jquery/jquery.min.js" type="text/javascript"></script>
 	<script src="/resources/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="/resources/vue/vue.min.js" type="text/javascript"></script>
 	<script src="/resources/fontawesome/js/all.min.js" type="text/javascript"></script>
 	<script src="/resources/showdown/showdown.min.js" type="text/javascript"></script>
+	<script>
+		$.getMultiScripts = function(arr, path) {
+		    var _arr = $.map(arr, function(scr) {
+		        return $.getScript( (path||"") + scr );
+		    });
+
+		    _arr.push($.Deferred(function( deferred ){
+		        $( deferred.resolve );
+		    }));
+
+		    return $.when.apply($, _arr);
+		}
+
+	</script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
