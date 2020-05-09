@@ -91,7 +91,7 @@ public abstract class AbstractRouteHandler implements RouteHandler {
 		this.getTemplateEngine().render(modelData, templatePath, result -> {
 			if (result.succeeded()) {
 				final JsonObject indexPageData = new JsonObject();
-				indexPageData.put("pageTitle", "Generic Page Title");
+				indexPageData.put("pageTitle", "KSystem Judge");
 				indexPageData.put("pageBody", result.result().toString());
 				this.getTemplateEngine().render(indexPageData, "template/master/Index", finalResult -> {
 					if (finalResult.succeeded()) {

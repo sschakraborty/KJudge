@@ -1,5 +1,7 @@
 package com.sschakraborty.platform.kjudge.shared.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class Problem {
 		fetch = FetchType.LAZY,
 		cascade = CascadeType.ALL
 	)
+	@JsonIgnore
 	private CodingEvent codingEvent;
 
 	@Column(
@@ -42,6 +45,7 @@ public class Problem {
 		fetch = FetchType.LAZY,
 		cascade = CascadeType.ALL
 	)
+	@JsonIgnore
 	private List<Testcase> testcases;
 
 	@JoinTable(
@@ -51,6 +55,7 @@ public class Problem {
 		fetch = FetchType.LAZY,
 		cascade = CascadeType.ALL
 	)
+	@JsonIgnore
 	private List<CodeSubmission> solutions;
 
 	@JoinColumn(
@@ -58,7 +63,7 @@ public class Problem {
 		nullable = false
 	)
 	@ManyToOne(
-		fetch = FetchType.LAZY,
+		fetch = FetchType.EAGER,
 		cascade = CascadeType.ALL
 	)
 	private MemoryConstraint memoryConstraint;
@@ -68,7 +73,7 @@ public class Problem {
 		nullable = false
 	)
 	@ManyToOne(
-		fetch = FetchType.LAZY,
+		fetch = FetchType.EAGER,
 		cascade = CascadeType.ALL
 	)
 	private TimeConstraint timeConstraint;
@@ -78,7 +83,7 @@ public class Problem {
 		nullable = false
 	)
 	@ManyToOne(
-		fetch = FetchType.LAZY,
+		fetch = FetchType.EAGER,
 		cascade = CascadeType.ALL
 	)
 	private IOConstraint ioConstraint;
@@ -91,6 +96,7 @@ public class Problem {
 		fetch = FetchType.LAZY,
 		cascade = CascadeType.ALL
 	)
+	@JsonIgnore
 	private User creator;
 
 	public String getProblemHandle() {

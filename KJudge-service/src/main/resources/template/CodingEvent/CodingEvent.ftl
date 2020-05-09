@@ -29,7 +29,7 @@
 										{{String(new Date(event.endTime))}}
 									</code>
 								</p>
-								<a class="card-link" href="#">Go to Event</a>
+								<a class="card-link" href="#" v-on:click="goToEvent(event.eventHandle)">Go to Event</a>
 								<a class="card-link btn-btn-sm" href="#" v-on:click="codingEvent = event">Edit</a>
 							</div>
 						</div>
@@ -196,9 +196,13 @@
 					    "startTime" : "2020-05-03T08:00:00",
 					    "endTime" : "2020-05-03T12:00:00"
 					};
+				},
+				goToEvent: function(handle) {
+					window.location.href = "/codingEvent/" + handle;
 				}
 			}
 		});
 	})();
+
 
 </script>

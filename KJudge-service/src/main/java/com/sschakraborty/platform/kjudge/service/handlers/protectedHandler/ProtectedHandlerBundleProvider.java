@@ -4,6 +4,7 @@ import com.sschakraborty.platform.kjudge.data.GenericDAO;
 import com.sschakraborty.platform.kjudge.service.handlers.HandlerBundleProvider;
 import com.sschakraborty.platform.kjudge.service.handlers.RouteHandler;
 import com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.handler.CodingEventHandler;
+import com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.handler.CodingEventPageHandler;
 import com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.handler.ProfileHandler;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.common.template.TemplateEngine;
@@ -19,7 +20,8 @@ public class ProtectedHandlerBundleProvider implements HandlerBundleProvider {
 	public ProtectedHandlerBundleProvider(GenericDAO genericDAO, TemplateEngine templateEngine) {
 		this.routeHandlers = Arrays.asList(
 			new ProfileHandler(genericDAO, templateEngine),
-			new CodingEventHandler(genericDAO, templateEngine)
+			new CodingEventHandler(genericDAO, templateEngine),
+			new CodingEventPageHandler(genericDAO, templateEngine)
 		);
 		this.staticHandler = StaticHandler.create("static");
 	}

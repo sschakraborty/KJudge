@@ -23,7 +23,7 @@ public class GeneralModelTest {
 	}
 
 	public GenericDAO getGenericDAO() throws AbstractBusinessException {
-		return this.genericDAO;
+		return genericDAO;
 	}
 
 	@Test
@@ -71,7 +71,38 @@ public class GeneralModelTest {
 		codingEvent.setEventType(CodingEventType.CONTEST);
 		codingEvent.setParticipationType(ParticipationType.FREE_GLOBAL);
 
-		genericDAO.save(codingEvent);
+		IOConstraint ioConstraint = new IOConstraint();
+		ioConstraint.setDescription("");
+		Map<Language, Integer> map = new HashMap<>();
+		ioConstraint.setOutputLimits(map);
+
+		MemoryConstraint memoryConstraint = new MemoryConstraint();
+		memoryConstraint.setDescription("");
+		memoryConstraint.setMemoryConstraints(map);
+
+		TimeConstraint timeConstraint = new TimeConstraint();
+		ioConstraint.setDescription("");
+		map.put(Language.JAVA_8, 1000);
+		map.put(Language.JAVA_11, 1200);
+		timeConstraint.setTimeConstraints(map);
+
+		Problem problem = new Problem();
+		problem.setTimeConstraint(timeConstraint);
+		problem.setMemoryConstraint(memoryConstraint);
+		problem.setIoConstraint(ioConstraint);
+		problem.setDescription("");
+		problem.setProblemHandle("P001");
+		final User user = new User();
+		final User existing = genericDAO.fetch(User.class, "USER1234").get(0);
+		user.setPrincipal(existing.getPrincipal());
+		user.setPassword(existing.getPassword());
+		problem.setCreator(user);
+		problem.setName("Problem Extensive");
+
+		problem.setCodingEvent(codingEvent);
+		codingEvent.setProblemList(Arrays.asList(problem));
+
+		genericDAO.saveOrUpdate(codingEvent);
 	}
 
 	@Test

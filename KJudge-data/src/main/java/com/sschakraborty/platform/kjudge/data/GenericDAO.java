@@ -117,4 +117,8 @@ public class GenericDAO {
 			}
 		});
 	}
+
+	public TransactionManager transactionManager() {
+		return this.transactionManager;
+	}
 }

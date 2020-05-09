@@ -7,6 +7,7 @@ import com.sschakraborty.platform.kjudge.shared.jsonUtility.LocalDateSerializer;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "CODING_EVENT")
@@ -60,6 +61,13 @@ public class CodingEvent {
 	@JsonDeserialize(using = LocalDateDeserializer.class)
 	@JsonSerialize(using = LocalDateSerializer.class)
 	private LocalDateTime endTime;
+
+	@OneToMany(
+		fetch = FetchType.LAZY,
+		cascade = CascadeType.ALL,
+		mappedBy = "codingEvent"
+	)
+	private List<Problem> problemList;
 
 	public String getEventHandle() {
 		return eventHandle;
@@ -115,5 +123,13 @@ public class CodingEvent {
 
 	public void setEndTime(LocalDateTime endTime) {
 		this.endTime = endTime;
+	}
+
+	public List<Problem> getProblemList() {
+		return problemList;
+	}
+
+	public void setProblemList(List<Problem> problemList) {
+		this.problemList = problemList;
 	}
 }
