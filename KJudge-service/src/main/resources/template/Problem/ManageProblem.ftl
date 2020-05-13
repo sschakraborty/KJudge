@@ -1,4 +1,7 @@
 <div id="app">
+	<form id="createProblemFormData" method="POST" style="display: none;">
+		<input name="model" type="hidden" v-model="formData"/>
+	</form>
 	<div class="row mt-3">
 		<div class="card card-body" style="background-color: #F0F0F0;">
 			<div class="card-title"><h3>Problem Details</h3></div>
@@ -121,7 +124,8 @@
 						{{ key }}
 					</th>
 					<td>
-						<input class="form-control form-control-sm" placeholder="#_expected_output_file_path" type="text"
+						<input class="form-control form-control-sm" placeholder="#_expected_output_file_path"
+						       type="text"
 						       v-model="mapViewer.map[key]"/>
 					</td>
 				</tr>
@@ -131,7 +135,7 @@
 	<div class="row mt-3 mb-3">
 		<div class="col-3"></div>
 		<div class="col-6 card card-body text-center" style="background-color: #F0F0F0;">
-			<button class="btn btn-sm btn-success">CREATE PROBLEM</button>
+			<button class="btn btn-sm btn-success" v-on:click="createProblemAction">CREATE PROBLEM</button>
 		</div>
 		<div class="col-3"></div>
 	</div>
@@ -164,6 +168,9 @@
 					return katex.renderToString(this.creationData.problem.description, {
 						throwOnError: false
 					});
+				},
+				formData: function() {
+					return JSON.stringify({ "creationData": this.creationData });
 				}
 			},
 			methods: {
@@ -185,6 +192,9 @@
 				},
 				deleteSolution: function(index) {
 					this.creationData.solutions.splice(index, 1);
+				},
+				createProblemAction: function() {
+					$("form#createProblemFormData").submit();
 				}
 			},
 			created() {
@@ -210,5 +220,6 @@
 			}
 		});
 	})();
+
 
 </script>

@@ -42,7 +42,7 @@ public class CodingEventPageHandler extends AbstractRouteHandler {
 						return null;
 					}
 				});
-				JsonObject codingEvent = (JsonObject) list.get(0);
+				final JsonObject codingEvent = (JsonObject) list.get(0);
 				if (codingEvent == null) {
 					routingContext.fail(404);
 				} else {
