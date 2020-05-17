@@ -82,6 +82,7 @@ public abstract class AbstractJudge implements Judge {
 		SubmissionResult submissionResult = submission.getSubmissionResult();
 		if (submissionResult == null) {
 			submissionResult = new SubmissionResult();
+			submissionResult.setOutputCode(OutputCode.INTERNAL_ERROR);
 			submission.setSubmissionResult(submissionResult);
 			submissionResult.setSubmission(submission);
 		}

@@ -59,7 +59,6 @@ public class GeneralModelTest {
 		genericDAO.save(user);
 	}
 
-	@Test
 	public void codingEventInsert() throws AbstractBusinessException {
 		GenericDAO genericDAO = getGenericDAO();
 

@@ -23,6 +23,7 @@ public class ProtectedHandlerBundleProvider implements HandlerBundleProvider {
 			new CodingEventPageHandler(genericDAO, templateEngine),
 			new ProblemPageHandler(genericDAO, templateEngine),
 			new CreateProblemHandler(genericDAO, templateEngine),
+			new SubmissionHandler(genericDAO, templateEngine),
 			createMockSubmissionHandler(genericDAO, templateEngine, judgeProcess)
 		);
 		this.staticHandler = StaticHandler.create("static");

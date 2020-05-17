@@ -4,10 +4,14 @@ import com.sschakraborty.platform.kjudge.data.GenericDAO;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
 import com.sschakraborty.platform.kjudge.error.logger.LoggingUtility;
 import com.sschakraborty.platform.kjudge.service.handlers.AbstractRouteHandler;
+import com.sschakraborty.platform.kjudge.shared.model.Language;
 import com.sschakraborty.platform.kjudge.shared.model.Problem;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.common.template.TemplateEngine;
+
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class ProblemPageHandler extends AbstractRouteHandler {
 	public ProblemPageHandler(GenericDAO genericDAO, TemplateEngine templateEngine) {
@@ -29,6 +33,7 @@ public class ProblemPageHandler extends AbstractRouteHandler {
 				final Problem problem = getGenericDAO().fetchFull(Problem.class, handle);
 				final JsonObject data = new JsonObject();
 				data.put("problem", JsonObject.mapFrom(problem));
+				data.put("languages", Arrays.stream(Language.values()).map(language -> language.toString()).collect(Collectors.toList()));
 				renderByType(
 					data,
 					"template/Problem/Problem",

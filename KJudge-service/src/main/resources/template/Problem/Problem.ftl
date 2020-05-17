@@ -60,7 +60,7 @@
 
 			<label class="mt-3">Submission Language</label>
 			<select class="form-control form-control-sm" v-model="language">
-				<option v-for="entry in Object.keys(CodeMirror.mimeModes)">{{ entry }}</option>
+				<option v-for="entry in model.languages">{{ entry }}</option>
 			</select>
 
 			<p class="mt-3">
@@ -76,13 +76,13 @@
 					<textarea class="form-control form-control-sm" rows="5"></textarea>
 				</div>
 				<div class="col-2">
-					<button class="btn btn-info btn-block btn-sm">Run Code</button>
+					<button class="btn btn-info btn-block btn-sm" v-on:click="mockSubmitCode">Run Code</button>
 					<button class="btn btn-success btn-block btn-sm">SUBMIT</button>
 				</div>
 			</div>
 		</div>
 		<div class="col-12 mt-3">
-			<textarea id="code-space" v-model="sourceCode"></textarea>
+			<textarea id="code-space"></textarea>
 		</div>
 	</div>
 </div>
@@ -121,7 +121,7 @@
 		];
 
 		$.getMultiScripts(script_arr, '/resources/codemirror/').done(function() {
-		    new Vue({
+		    document.VueObject = new Vue({
 				el: "#app",
 				data: {
 					"sourceCode": "//## Type your code here ##//",
@@ -138,26 +138,42 @@
 				methods: {
 					updateEditor: function() {
 						document.cEditor.setOption("mode", this.cEditor_mode)
+					},
+					mockSubmitCode: function() {
+						var that = this;
+						const modelJSON = JSON.stringify({
+							codeSubmission: {
+								language: that.language,
+								sourceCode: that.sourceCode
+							},
+							problemHandle: that.model.problem.problemHandle
+						});
+						$.post("/submission/mockSubmit", { model: modelJSON }, function(data) {
+							location.href = "/submission";
+						});
 					}
+				},
+				mounted: function() {
+					document.cEditor = CodeMirror.fromTextArea(document.getElementById("code-space"), {
+						lineNumbers: true,
+						mode: "text/x-csrc",
+						indentUnit: 4,
+						foldGutter: true,
+						gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+						extraKeys: {"Ctrl-Space": "autocomplete"}
+					});
+					document.cEditor.on("changes", () => {
+						this.sourceCode = document.cEditor.getValue();
+					});
+					document.cEditor.setValue(this.sourceCode);
 				}
-			});
-
-			document.cEditor = CodeMirror.fromTextArea(document.getElementById("code-space"), {
-				lineNumbers: true,
-				mode: "text/x-csrc",
-				indentUnit: 4,
-				foldGutter: true,
-				gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-				extraKeys: {"Ctrl-Space": "autocomplete"}
 			});
 		});
 	})();
-
 </script>
 <style>
 	.CodeMirror {
 		border: 1px solid #eee;
 		height: auto;
 	}
-
 </style>

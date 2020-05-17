@@ -42,7 +42,7 @@ public abstract class AbstractJavaJudge extends AbstractJudge {
 				baseDirectory,
 				basePath + "/bin/" + disassembler + " -public " + fileName
 			);
-			if (output.contains("public static void main(java.lang.String[]);")) {
+			if (output.contains("public static void main(java.lang.String[])")) {
 				return fileName.substring(0, fileName.indexOf(".class"));
 			}
 		}

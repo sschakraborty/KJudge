@@ -30,7 +30,10 @@ public class Application {
 		this.portNumber = portNumber;
 		this.templateEngine = FreeMarkerTemplateEngine.create(vertx);
 		this.errorHandler = ErrorHandler.create();
-		this.judgeProcess = new JudgeProcess(this.genericDAO, 24);
+		{
+			this.judgeProcess = new JudgeProcess(this.genericDAO, 24);
+			LoggingUtility.logger().info("Judge process started with {} threads!", this.judgeProcess.getThreadPoolSize());
+		}
 	}
 
 	public void init() {
