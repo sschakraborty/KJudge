@@ -21,6 +21,7 @@ public class Application {
 	private final int portNumber;
 	private final TemplateEngine templateEngine;
 	private final ErrorHandler errorHandler;
+	private final JudgeProcess judgeProcess;
 
 	public Application(int portNumber, VertxOptions vertxOptions) throws AbstractBusinessException {
 		this.vertx = Vertx.vertx(vertxOptions);
@@ -29,6 +30,7 @@ public class Application {
 		this.portNumber = portNumber;
 		this.templateEngine = FreeMarkerTemplateEngine.create(vertx);
 		this.errorHandler = ErrorHandler.create();
+		this.judgeProcess = new JudgeProcess(this.genericDAO, 24);
 	}
 
 	public void init() {
@@ -48,7 +50,7 @@ public class Application {
 		LoggingUtility.logger().info("Applying public routes!");
 		provider.applyRoutes(this.security.router());
 		this.security.applyFilter();
-		provider = new ProtectedHandlerBundleProvider(this.genericDAO, this.templateEngine);
+		provider = new ProtectedHandlerBundleProvider(this.genericDAO, this.templateEngine, this.judgeProcess);
 		LoggingUtility.logger().info("Applying protected routes!");
 		provider.applyRoutes(this.security.router());
 		this.security.router().route().handler(this.errorHandler);

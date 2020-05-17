@@ -1,6 +1,7 @@
 package com.sschakraborty.platform.kjudge.service.handlers.protectedHandler;
 
 import com.sschakraborty.platform.kjudge.data.GenericDAO;
+import com.sschakraborty.platform.kjudge.service.JudgeProcess;
 import com.sschakraborty.platform.kjudge.service.handlers.HandlerBundleProvider;
 import com.sschakraborty.platform.kjudge.service.handlers.RouteHandler;
 import com.sschakraborty.platform.kjudge.service.handlers.protectedHandler.handler.*;
@@ -15,15 +16,22 @@ public class ProtectedHandlerBundleProvider implements HandlerBundleProvider {
 	private final List<RouteHandler> routeHandlers;
 	private final StaticHandler staticHandler;
 
-	public ProtectedHandlerBundleProvider(GenericDAO genericDAO, TemplateEngine templateEngine) {
+	public ProtectedHandlerBundleProvider(GenericDAO genericDAO, TemplateEngine templateEngine, JudgeProcess judgeProcess) {
 		this.routeHandlers = Arrays.asList(
 			new ProfileHandler(genericDAO, templateEngine),
 			new CodingEventHandler(genericDAO, templateEngine),
 			new CodingEventPageHandler(genericDAO, templateEngine),
 			new ProblemPageHandler(genericDAO, templateEngine),
-			new CreateProblemHandler(genericDAO, templateEngine)
+			new CreateProblemHandler(genericDAO, templateEngine),
+			createMockSubmissionHandler(genericDAO, templateEngine, judgeProcess)
 		);
 		this.staticHandler = StaticHandler.create("static");
+	}
+
+	private final MockSubmissionHandler createMockSubmissionHandler(GenericDAO genericDAO, TemplateEngine templateEngine, JudgeProcess judgeProcess) {
+		final MockSubmissionHandler mockSubmissionHandler = new MockSubmissionHandler(genericDAO, templateEngine);
+		mockSubmissionHandler.setJudgeProcess(judgeProcess);
+		return mockSubmissionHandler;
 	}
 
 	@Override

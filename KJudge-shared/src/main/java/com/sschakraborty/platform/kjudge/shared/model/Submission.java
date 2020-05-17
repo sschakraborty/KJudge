@@ -43,8 +43,7 @@ public class Submission {
 	private CodeSubmission codeSubmission;
 
 	@JoinColumn(
-		name = "SUBMISSION_RESULT_ID",
-		nullable = false
+		name = "SUBMISSION_RESULT_ID"
 	)
 	@OneToOne(
 		fetch = FetchType.LAZY,
