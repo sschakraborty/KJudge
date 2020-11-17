@@ -4,7 +4,6 @@ jdk:
     - openjdk11
     - oraclejdk11
     - openjdk14
-    - oraclejdk14
 dist: bionic
 services:
     - mysql
