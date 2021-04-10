@@ -1,7 +1,11 @@
 def github_repo_url = "https://github.com/sschakraborty/KJudge.git"
-    def project_name = "KJudge - KSystem Judge"
+def project_name = "KJudge - KSystem Judge"
 
 pipeline {
+    parameters {
+        string defaultValue: 'master', description: 'KJudge GitHub repository branch name', name: 'BRANCH_NAME', trim: true
+    }
+
     agent any
 
     stages {
