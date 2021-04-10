@@ -1,7 +1,7 @@
-pipeline {
-    def github_repo_url = "https://github.com/sschakraborty/KJudge.git"
+def github_repo_url = "https://github.com/sschakraborty/KJudge.git"
     def project_name = "KJudge - KSystem Judge"
 
+pipeline {
     agent any
 
     stages {
