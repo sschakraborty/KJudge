@@ -26,7 +26,7 @@ pipeline {
 
     post {
         always {
-            publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: false, reportFiles: 'build_report.html', reportName: 'KJudge Build Report', reportTitles: ''])
+            publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: false, reportDir: '', reportFiles: 'build_report.html', reportName: 'KJudge Build Report', reportTitles: ''])
         }
         failure {
             echo "Pipeline failed!"
