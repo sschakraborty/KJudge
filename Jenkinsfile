@@ -11,8 +11,8 @@ pipeline {
     stages {
         stage("Git Checkout") {
             steps {
-                echo "Checking out from ${github_repo_url} - Branch ${BRANCH_NAME}"
-                git branch: "${BRANCH_NAME}", credentialsId: "2304e6ac-bdfe-4226-bc6e-b2813d5cbf54", url: "${github_repo_url}"
+                echo "Checking out from ${github_repo_url} - Branch ${params.BRANCH_NAME}"
+                git branch: "${params.BRANCH_NAME}", credentialsId: "2304e6ac-bdfe-4226-bc6e-b2813d5cbf54", url: "${github_repo_url}"
             }
         }
 
