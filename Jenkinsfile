@@ -8,6 +8,11 @@ pipeline {
 
     agent any
 
+    tools {
+        git "git"
+        maven "maven_363"
+    }
+
     stages {
         stage("Git Checkout") {
             steps {
@@ -19,7 +24,7 @@ pipeline {
         stage("Build") {
             steps {
                 echo "Building ${project_name} repository"
-                bat "mvn clean install -D skipTests -T 4"
+                sh "mvn clean install -D skipTests -T 4"
             }
         }
     }
