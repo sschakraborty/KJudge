@@ -23,7 +23,9 @@
         <vertx.version>3.9.0</vertx.version>
         <auth0.jwt.version>3.10.2</auth0.jwt.version>
         <log4j.version>2.13.2</log4j.version>
+        <h2.version>1.4.200</h2.version>
     </properties>
+
 
     <modules>
         <module>KJudge-data</module>
