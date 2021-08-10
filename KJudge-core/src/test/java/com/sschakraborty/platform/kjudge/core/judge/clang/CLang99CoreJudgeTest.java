@@ -3,13 +3,14 @@ package com.sschakraborty.platform.kjudge.core.judge.clang;
 import com.sschakraborty.platform.kjudge.core.io.PropertyFileReader;
 import com.sschakraborty.platform.kjudge.error.AbstractBusinessException;
 import com.sschakraborty.platform.kjudge.shared.model.*;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
+@Ignore
 public class CLang99CoreJudgeTest {
 	private final Properties masterProperties;
 	private final CLang99CoreJudge judge;
