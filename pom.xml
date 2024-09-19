@@ -18,7 +18,7 @@
         <hibernate.version>5.5.3.Final</hibernate.version>
         <hikaricp.version>3.4.5</hikaricp.version>
         <junit.version>4.13</junit.version>
-        <mysql.connectorj.version>8.0.27</mysql.connectorj.version>
+        <mysql.connectorj.version>8.0.31</mysql.connectorj.version>
         <jpa.version>2.2</jpa.version>
         <vertx.version>3.9.7</vertx.version>
         <auth0.jwt.version>3.10.2</auth0.jwt.version>
